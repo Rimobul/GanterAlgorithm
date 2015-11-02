@@ -15,24 +15,43 @@ namespace GanterAlgorithm
         {
         }
 
-        public static void PerformAlgorithm()
+        public static List<List<Attribute>> PerformAlgorithm()
         {
             List<Attribute> setA = new List<Attribute>();
-            Attribute mi = Context.Attributes.Where(a => !setA.Contains(a)).OrderBy(a => a.LecticPosition).FirstOrDefault();
+            List<List<Attribute>> resultSets = new List<List<Attribute>>();
+            bool wasFound = true;
 
-            List<Attribute> closure = mi.Closure(setA, Context);
-            Attribute newMinimal = closure.Where(c => !setA.Contains(c)).OrderBy(c => c.LecticPosition).FirstOrDefault();
+            // adding empty set
+            resultSets.Add(new List<Attribute>());
 
-            if(newMinimal == mi)
+            while (wasFound)
             {
-                setA = closure;
-                mi = Context.Attributes.Where(a => !setA.Contains(a)).OrderBy(a => a.LecticPosition).FirstOrDefault();
-
-                if(setA.SetEquals(Context.Attributes))
+                foreach (var mi in Context.Attributes.Where(a => !setA.Contains(a)).OrderBy(a => a.LecticPosition))
                 {
-                    //TODO: Win!
+                    List<Attribute> closure = mi.Closure(setA, Context);
+                    Attribute newMinimal = closure.Where(c => !setA.Contains(c)).OrderBy(c => c.LecticPosition).FirstOrDefault();
+
+                    if (newMinimal == mi)
+                    {
+                        setA = closure;
+                        resultSets.Add(closure);
+                        wasFound = true;
+
+                        if (setA.SetEquals(Context.Attributes))
+                        {
+                            return resultSets;
+                        }
+
+                        break;
+                    }
+                    else wasFound = false;
                 }
+
+                if (!wasFound)
+                    throw new Exception("Not found.");
             }
+
+            return null;
         }
     }
 }
