@@ -11,13 +11,42 @@ namespace GanterAlgorithm
         public List<Attribute> Attributes { get; private set; }
         public List<Item> Items { get; private set; }
         /// <summary>
-        /// Matrix Attributes x Items
+        /// Matrix Items x Attributes
         /// </summary>
         public bool[,] Matrix { get; private set; }
+
+        public FormalContext(List<Attribute> attributes, List<Item> items, bool[,] matrix, bool assignDefaultPositions)
+        {
+            if (attributes == null
+                || !attributes.Any()
+                || items == null
+                || !items.Any()
+                || matrix == null)
+                throw new ArgumentNullException("Invalid arguments");
+
+            if (matrix.Length != attributes.Count * items.Count) throw new IndexOutOfRangeException("Wrong matrix");
+
+            Attributes = attributes;
+            Items = items;
+            Matrix = matrix;
+
+            if(assignDefaultPositions)
+            {
+                for(int i = 0; i < Attributes.Count; i++)
+                {
+                    Attributes[i].LecticPosition = i;
+                }
+
+                for(int i = 0; i < Items.Count; i++)
+                {
+                    Items[i].MatrixOrder = i;
+                }
+            }
+        }
         
         public bool? Value(Attribute attribute, Item item)
         {
-            return Matrix[attribute.LecticPosition, item.MatrixOrder];
+            return Matrix[item.MatrixOrder, attribute.LecticPosition];
         } 
 
         public IEnumerable<Item> Intent(IEnumerable<Attribute> attributeSet)
@@ -34,7 +63,7 @@ namespace GanterAlgorithm
                 bool containsAllAttributes = true;
                 foreach(int position in attributeSet.Select(a => a.LecticPosition))
                 {
-                    if(!Matrix[position, order])
+                    if(!Matrix[order, position])
                     {
                         containsAllAttributes = false;
                         break;
@@ -60,7 +89,7 @@ namespace GanterAlgorithm
                 bool containsAllItems = true;
                 foreach(int order in items.Select(i => i.MatrixOrder))
                 {
-                    if(!Matrix[position, order])
+                    if(!Matrix[order, position])
                     {
                         containsAllItems = false;
                         break;

@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 namespace GanterAlgorithm
 {
     class Program
-    {
-        private static FormalContext Context { get; set; }
-        
-
+    {     
         static void Main(string[] args)
         {
+            var result = PerformAlgorithm(TestContext.GenerateFormalContext());
+
+            foreach(var line in result)
+            {
+                Console.WriteLine("{" + string.Join(", ", line.Select(l => l.Name)) + "}");
+            }
+
+            Console.ReadLine();
         }
 
-        public static List<List<Attribute>> PerformAlgorithm()
+        public static List<List<Attribute>> PerformAlgorithm(FormalContext context)
         {
-            List<Attribute> setA = new List<Attribute>();
+            List<Attribute> setA = context.Extent(context.Items).ToList();
             List<List<Attribute>> resultSets = new List<List<Attribute>>();
             bool wasFound = true;
 
@@ -26,9 +31,9 @@ namespace GanterAlgorithm
 
             while (wasFound)
             {
-                foreach (var mi in Context.Attributes.Where(a => !setA.Contains(a)).OrderBy(a => a.LecticPosition))
+                foreach (var mi in context.Attributes.Where(a => !setA.Contains(a)).OrderByDescending(a => a.LecticPosition))
                 {
-                    List<Attribute> closure = mi.Closure(setA, Context);
+                    List<Attribute> closure = mi.Closure(setA, context);
                     Attribute newMinimal = closure.Where(c => !setA.Contains(c)).OrderBy(c => c.LecticPosition).FirstOrDefault();
 
                     if (newMinimal == mi)
@@ -37,7 +42,7 @@ namespace GanterAlgorithm
                         resultSets.Add(closure);
                         wasFound = true;
 
-                        if (setA.SetEquals(Context.Attributes))
+                        if (setA.SetEquals(context.Attributes))
                         {
                             return resultSets;
                         }
