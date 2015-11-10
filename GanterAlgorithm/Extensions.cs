@@ -23,5 +23,15 @@ namespace GanterAlgorithm
 
             return ((AnotB == null || !AnotB.Any()) && (BnotA == null || !BnotA.Any()));
         }
+
+        public static bool Contains(this IEnumerable<Attribute> setA, IEnumerable<Attribute> setB)
+        {
+            foreach(var b in setB)
+            {
+                if (!setA.Contains(b)) return false;
+            }
+
+            return true;
+        }
     }
 }

@@ -26,8 +26,8 @@ namespace GanterAlgorithm
             List<List<Attribute>> resultSets = new List<List<Attribute>>();
             bool wasFound = true;
 
-            // adding empty set
-            resultSets.Add(new List<Attribute>());
+            // adding first set
+            resultSets.Add(setA);
 
             while (wasFound)
             {
