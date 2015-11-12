@@ -11,11 +11,14 @@ namespace GanterAlgorithm
         static void Main(string[] args)
         {
             var result = PerformAlgorithm(TestContext.GenerateFormalContext());
+            var lattice = new Lattice(result);
 
             foreach(var line in result)
             {
                 Console.WriteLine("{" + string.Join(", ", line.Select(l => l.Name)) + "}");
             }
+
+            Console.Write(lattice.ToString());
 
             Console.ReadLine();
         }

@@ -13,32 +13,48 @@ namespace GanterAlgorithm
 
         public static bool operator < (Attribute a, Attribute b)
         {
-            return a.LecticPosition < b.LecticPosition;
+            if (a == null || b == null) throw new ArgumentNullException();
+            else return a.LecticPosition < b.LecticPosition;
         }
 
         public static bool operator > (Attribute a, Attribute b)
         {
-            return a.LecticPosition > b.LecticPosition;
+            if (a == null || b == null) throw new ArgumentNullException();
+            else return a.LecticPosition > b.LecticPosition;
         }
 
         public static bool operator <= (Attribute a, Attribute b)
         {
-            return a.LecticPosition <= b.LecticPosition;
+            if (a == null && b == null) return true;
+            else if (a == null || b == null) return false;
+            else return a.LecticPosition <= b.LecticPosition;
         }
 
         public static bool operator >= (Attribute a, Attribute b)
         {
-            return a.LecticPosition >= b.LecticPosition;
+            if (a == null && b == null) return true;
+            else if (a == null || b == null) return false;
+            else return a.LecticPosition >= b.LecticPosition;
         }
 
         public static bool operator == (Attribute a, Attribute b)
         {
+            if (System.Object.ReferenceEquals(a, b))
+            {
+                return true;
+            }
+            
+            if (((object)a == null) || ((object)b == null))
+            {
+                return false;
+            }
+
             return a.LecticPosition == b.LecticPosition;
         }
 
         public static bool operator != (Attribute a, Attribute b)
         {
-            return a.LecticPosition != b.LecticPosition;
+            return !(a == b);
         }
 
         public List<Attribute> Closure(List<Attribute> setA, FormalContext formalContext)
