@@ -10,7 +10,7 @@ namespace GanterAlgorithm
     {     
         static void Main(string[] args)
         {
-            var result = PerformAlgorithm(TestContext.GenerateFormalContext());
+            var result = PerformAlgorithm(TestContext.GeneratePapers());
             var lattice = new Lattice(result);
 
             foreach(var line in result)

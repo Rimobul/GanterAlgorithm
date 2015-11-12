@@ -8,7 +8,7 @@ namespace GanterAlgorithm
 {
     public static class TestContext
     {
-        public static FormalContext GenerateFormalContext()
+        public static FormalContext GeneratePlanets()
         {
             List<Attribute> attributes = new List<Attribute>()
             {
@@ -48,6 +48,43 @@ namespace GanterAlgorithm
             };
 
             return new FormalContext(attributes, planets, matrix, true);
+        }
+
+        public static FormalContext GeneratePapers()
+        {
+            List<Attribute> attributes = new List<Attribute>()
+            {
+                new Attribute() {Name="brilliant white" },
+                new Attribute() {Name="fine white" },
+                new Attribute() {Name="white" },
+                new Attribute() {Name="high-performance copiers" },
+                new Attribute() {Name="copiers" },
+                new Attribute() {Name="liquid toner copiers" },
+                new Attribute() {Name="type writers" },
+                new Attribute() {Name="double sided" },
+            };
+
+            List<Item> papers = new List<Item>()
+            {
+                new Item() {Name = "Copy-Lux" },
+                new Item() {Name = "Copy-X" },
+                new Item() {Name = "Copy" },
+                new Item() {Name = "Liquid-Copy" },
+                new Item() {Name = "Office" },
+                new Item() {Name = "Offset" },
+            };
+
+            bool[,] matrix = new bool[,]
+            {
+                {true, false, false, true, true, false, true, true },
+                {false, true, false, true, true, false, true, true },
+                {false, false, true, true, true, false, true, true},
+                {false, false, true, false, true, true, false, true },
+                {false, false, true, false, true, false, true, false},
+                {false, false, true, false, false, false, true, false},
+            };
+
+            return new FormalContext(attributes, papers, matrix, true);
         }
     }
 }
