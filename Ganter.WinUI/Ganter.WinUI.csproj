@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestContexts.cs" />
     <EmbeddedResource Include="GanterWindow.resx">
       <DependentUpon>GanterWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,6 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ganter.Algorithm\Ganter.Algorithm.csproj">
+      <Project>{b00cdd7e-0429-4980-a096-5446508fb683}</Project>
+      <Name>Ganter.Algorithm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GanterAlgorithm
+namespace Ganter.Algorithm
 {
     public class FormalContext
     {
@@ -30,40 +30,40 @@ namespace GanterAlgorithm
             Items = items;
             Matrix = matrix;
 
-            if(assignDefaultPositions)
+            if (assignDefaultPositions)
             {
-                for(int i = 0; i < Attributes.Count; i++)
+                for (int i = 0; i < Attributes.Count; i++)
                 {
                     Attributes[i].LecticPosition = i;
                 }
 
-                for(int i = 0; i < Items.Count; i++)
+                for (int i = 0; i < Items.Count; i++)
                 {
                     Items[i].MatrixOrder = i;
                 }
             }
         }
-        
+
         public bool? Value(Attribute attribute, Item item)
         {
             return Matrix[item.MatrixOrder, attribute.LecticPosition];
-        } 
+        }
 
         public IEnumerable<Item> Intent(IEnumerable<Attribute> attributeSet)
         {
-            if(attributeSet == null || !attributeSet.Any())
+            if (attributeSet == null || !attributeSet.Any())
             {
                 foreach (var item in Items)
                     yield return item;
                 yield break;
             }
 
-            foreach(int order in Items.Select(i => i.MatrixOrder))
+            foreach (int order in Items.Select(i => i.MatrixOrder))
             {
                 bool containsAllAttributes = true;
-                foreach(int position in attributeSet.Select(a => a.LecticPosition))
+                foreach (int position in attributeSet.Select(a => a.LecticPosition))
                 {
-                    if(!Matrix[order, position])
+                    if (!Matrix[order, position])
                     {
                         containsAllAttributes = false;
                         break;
@@ -77,19 +77,19 @@ namespace GanterAlgorithm
 
         public IEnumerable<Attribute> Extent(IEnumerable<Item> items)
         {
-            if(items == null || !items.Any())
+            if (items == null || !items.Any())
             {
                 foreach (var attribute in Attributes)
                     yield return attribute;
-                yield break; 
+                yield break;
             }
 
-            foreach(int position in Attributes.Select(a => a.LecticPosition))
+            foreach (int position in Attributes.Select(a => a.LecticPosition))
             {
                 bool containsAllItems = true;
-                foreach(int order in items.Select(i => i.MatrixOrder))
+                foreach (int order in items.Select(i => i.MatrixOrder))
                 {
-                    if(!Matrix[order, position])
+                    if (!Matrix[order, position])
                     {
                         containsAllItems = false;
                         break;
@@ -99,6 +99,45 @@ namespace GanterAlgorithm
                 if (containsAllItems)
                     yield return Attributes.FirstOrDefault(a => a.LecticPosition == position);
             }
+        }
+
+        public List<List<Attribute>> PerformAlgorithm()
+        {
+            List<Attribute> setA = Extent(Items).ToList();
+            List<List<Attribute>> resultSets = new List<List<Attribute>>();
+            bool wasFound = true;
+
+            // adding first set
+            resultSets.Add(setA);
+
+            while (wasFound)
+            {
+                foreach (var mi in Attributes.Where(a => !setA.Contains(a)).OrderByDescending(a => a.LecticPosition))
+                {
+                    List<Attribute> closure = mi.Closure(setA, this);
+                    Attribute newMinimal = closure.Where(c => !setA.Contains(c)).OrderBy(c => c.LecticPosition).FirstOrDefault();
+
+                    if (newMinimal == mi)
+                    {
+                        setA = closure;
+                        resultSets.Add(closure);
+                        wasFound = true;
+
+                        if (setA.SetEquals(Attributes))
+                        {
+                            return resultSets;
+                        }
+
+                        break;
+                    }
+                    else wasFound = false;
+                }
+
+                if (!wasFound)
+                    throw new Exception("Not found.");
+            }
+
+            return null;
         }
     }
 }

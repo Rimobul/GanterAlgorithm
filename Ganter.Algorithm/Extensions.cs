@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GanterAlgorithm
+namespace Ganter.Algorithm
 {
     public static class Extensions
     {
@@ -26,7 +26,7 @@ namespace GanterAlgorithm
 
         public static bool Contains(this IEnumerable<Attribute> setA, IEnumerable<Attribute> setB)
         {
-            foreach(var b in setB)
+            foreach (var b in setB)
             {
                 if (!setA.Contains(b)) return false;
             }

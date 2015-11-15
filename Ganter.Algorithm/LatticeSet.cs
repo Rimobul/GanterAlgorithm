@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GanterAlgorithm
+namespace Ganter.Algorithm
 {
     public class LatticeSet : IComparable
     {
@@ -18,7 +18,7 @@ namespace GanterAlgorithm
             Subsets = new List<LatticeSet>();
         }
 
-        public static bool operator == (LatticeSet a, LatticeSet b)
+        public static bool operator ==(LatticeSet a, LatticeSet b)
         {
             if (System.Object.ReferenceEquals(a, b))
             {
@@ -41,30 +41,24 @@ namespace GanterAlgorithm
             else return false;
         }
 
-        public static bool operator != (LatticeSet a, LatticeSet b)
+        public static bool operator !=(LatticeSet a, LatticeSet b)
         {
             return !(a == b);
         }
 
         public void ProcessPossibleSubset(LatticeSet pivot)
         {
-            if(this.AttributeSet.Contains(pivot.AttributeSet))
+            if (this.AttributeSet.Contains(pivot.AttributeSet))
             {
                 // transitive reduction
                 Subsets.RemoveAll(s => pivot.Subsets.Contains(s));
                 this.Subsets.Add(pivot);
-                if(this.Level <= pivot.Level)
+                if (this.Level <= pivot.Level)
                     this.Level = pivot.Level + 1;
-                Console.WriteLine("Level : {0} - {1} is a subset of {2}", Level, pivot, this);
-            }
-            else
-            {
-
-                Console.WriteLine("Level : {0} - {1} is not a subset of {2}", Level, pivot, this);
             }
         }
 
-        public static bool operator < (LatticeSet a, LatticeSet b)
+        public static bool operator <(LatticeSet a, LatticeSet b)
         {
             if (a == null || b == null) return false;
             if (a.Level == b.Level)
@@ -78,7 +72,7 @@ namespace GanterAlgorithm
             else return a.Level < b.Level;
         }
 
-        public static bool operator > (LatticeSet a, LatticeSet b)
+        public static bool operator >(LatticeSet a, LatticeSet b)
         {
             if (a == null || b == null) return false;
             if (a.Level == b.Level)
@@ -92,7 +86,7 @@ namespace GanterAlgorithm
             else return a.Level > b.Level;
         }
 
-        public static bool operator <= (LatticeSet a, LatticeSet b)
+        public static bool operator <=(LatticeSet a, LatticeSet b)
         {
             if (a == null && b == null) return true;
             if (a == null || b == null) return false;
@@ -103,7 +97,7 @@ namespace GanterAlgorithm
             else return a.Level <= b.Level;
         }
 
-        public static bool operator >= (LatticeSet a, LatticeSet b)
+        public static bool operator >=(LatticeSet a, LatticeSet b)
         {
             if (a == null && b == null) return true;
             if (a == null || b == null) return false;
@@ -118,7 +112,7 @@ namespace GanterAlgorithm
         {
             if (obj == null) return false;
             if (obj.GetType() != typeof(LatticeSet)) return false;
-            return this == obj as LatticeSet;            
+            return this == obj as LatticeSet;
         }
 
         public override int GetHashCode()

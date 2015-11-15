@@ -2,48 +2,47 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace GanterAlgorithm
+namespace Ganter.Algorithm
 {
     public class Attribute
     {
         public string Name { get; set; }
         public int LecticPosition { get; set; }
 
-        public static bool operator < (Attribute a, Attribute b)
+        public static bool operator <(Attribute a, Attribute b)
         {
             if (a == null || b == null) throw new ArgumentNullException();
             else return a.LecticPosition < b.LecticPosition;
         }
 
-        public static bool operator > (Attribute a, Attribute b)
+        public static bool operator >(Attribute a, Attribute b)
         {
             if (a == null || b == null) throw new ArgumentNullException();
             else return a.LecticPosition > b.LecticPosition;
         }
 
-        public static bool operator <= (Attribute a, Attribute b)
+        public static bool operator <=(Attribute a, Attribute b)
         {
             if (a == null && b == null) return true;
             else if (a == null || b == null) return false;
             else return a.LecticPosition <= b.LecticPosition;
         }
 
-        public static bool operator >= (Attribute a, Attribute b)
+        public static bool operator >=(Attribute a, Attribute b)
         {
             if (a == null && b == null) return true;
             else if (a == null || b == null) return false;
             else return a.LecticPosition >= b.LecticPosition;
         }
 
-        public static bool operator == (Attribute a, Attribute b)
+        public static bool operator ==(Attribute a, Attribute b)
         {
             if (System.Object.ReferenceEquals(a, b))
             {
                 return true;
             }
-            
+
             if (((object)a == null) || ((object)b == null))
             {
                 return false;
@@ -52,7 +51,7 @@ namespace GanterAlgorithm
             return a.LecticPosition == b.LecticPosition;
         }
 
-        public static bool operator != (Attribute a, Attribute b)
+        public static bool operator !=(Attribute a, Attribute b)
         {
             return !(a == b);
         }

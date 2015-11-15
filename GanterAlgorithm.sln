@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GanterAlgorithm", "GanterAlgorithm\GanterAlgorithm.csproj", "{8CC81A55-95A2-4892-815A-3B6AF055DDEA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ganter.WinUI", "Ganter.WinUI\Ganter.WinUI.csproj", "{AF4617B0-E009-4DFF-9FB2-B7B78AA43B58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ganter.Algorithm", "Ganter.Algorithm\Ganter.Algorithm.csproj", "{B00CDD7E-0429-4980-A096-5446508FB683}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ganter.Parsers", "Ganter.Parsers\Ganter.Parsers.csproj", "{A884A9C1-92AE-4CF6-847E-B251DC87A1ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8CC81A55-95A2-4892-815A-3B6AF055DDEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CC81A55-95A2-4892-815A-3B6AF055DDEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CC81A55-95A2-4892-815A-3B6AF055DDEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CC81A55-95A2-4892-815A-3B6AF055DDEA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AF4617B0-E009-4DFF-9FB2-B7B78AA43B58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AF4617B0-E009-4DFF-9FB2-B7B78AA43B58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF4617B0-E009-4DFF-9FB2-B7B78AA43B58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF4617B0-E009-4DFF-9FB2-B7B78AA43B58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00CDD7E-0429-4980-A096-5446508FB683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00CDD7E-0429-4980-A096-5446508FB683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00CDD7E-0429-4980-A096-5446508FB683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00CDD7E-0429-4980-A096-5446508FB683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A884A9C1-92AE-4CF6-847E-B251DC87A1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A884A9C1-92AE-4CF6-847E-B251DC87A1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A884A9C1-92AE-4CF6-847E-B251DC87A1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A884A9C1-92AE-4CF6-847E-B251DC87A1ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

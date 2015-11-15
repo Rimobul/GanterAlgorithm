@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GanterAlgorithm
+namespace Ganter.Algorithm
 {
     public class Lattice
     {
@@ -23,9 +23,9 @@ namespace GanterAlgorithm
             var pivot = Sets.Where(s => !s.Processed).Min();
             var maxElement = Sets.Max();
 
-            while(pivot != maxElement)
+            while (pivot != maxElement)
             {
-                foreach(var latticeSet in Sets.Where(s => s > pivot && !s.Processed))
+                foreach (var latticeSet in Sets.Where(s => s > pivot && !s.Processed))
                 {
                     latticeSet.ProcessPossibleSubset(pivot);
                 }
@@ -42,7 +42,7 @@ namespace GanterAlgorithm
 
         private IEnumerable<LatticeSet> GetLatticeSets(List<List<Attribute>> ganterResult)
         {
-            foreach(var attributeSet in ganterResult)
+            foreach (var attributeSet in ganterResult)
             {
                 yield return new LatticeSet() { AttributeSet = attributeSet, Level = 1 };
             }
@@ -52,7 +52,7 @@ namespace GanterAlgorithm
         {
             StringBuilder sb = new StringBuilder();
 
-            foreach(int level in Sets.Select(s => s.Level).Distinct())
+            foreach (int level in Sets.Select(s => s.Level).Distinct())
             {
                 sb.AppendLine(string.Format("{0} : {1}", level, string.Join(" + ", Sets
                                                                                 .Where(s => s.Level == level)
