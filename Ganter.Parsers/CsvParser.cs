@@ -10,12 +10,16 @@ namespace Ganter.Parsers
     public class CsvParser
     {
         private Stream FileStream { get; set; }
-        private char Separator { get; set; }
+        private string Separator { get; set; }
+        private string TrueValue { get; set; }
+        private string FalseValue { get; set; }
 
-        public CsvParser(Stream fileStream, char separator = ';')
+        public CsvParser(Stream fileStream, string trueValue, string falseValue, string separator)
         {
             FileStream = fileStream;
             Separator = separator;
+            TrueValue = trueValue;
+            FalseValue = falseValue;
         }
 
         public FormalContext ParseContext()
@@ -24,14 +28,14 @@ namespace Ganter.Parsers
             {
                 string[] lines = reader.ReadLines().ToArray();
 
-                string[] attributeNames = lines[0].Split(Separator);
+                string[] attributeNames = lines[0].Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries);
                 List<Algorithm.Attribute> attributes = CreateAttributes(attributeNames.Skip(1)).ToList();
                 List<Item> items = new List<Item>();
                 bool[,] matrix = new bool[lines.Length - 1, attributes.Count];
 
                 for (int i = 1; i < lines.Length; i++)
                 {
-                    string[] lineValues = lines[i].Split(Separator);
+                    string[] lineValues = lines[i].Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries);
                     items.Add(new Item() { Name = lineValues[0] });
 
                     for (int j = 1; j < lineValues.Length; j++)
@@ -47,10 +51,8 @@ namespace Ganter.Parsers
         private bool ParseBool(string lineValue)
         {
             lineValue = lineValue.ToLower();
-
-            // TODO: pridat hodnoty do konfiguracie
-            if (lineValue == "0" || lineValue == "false" || lineValue == "ne") return false;
-            else if (lineValue == "1" || lineValue == "true" || lineValue == "ano") return true;
+            if (lineValue == FalseValue.ToLower()) return false;
+            else if (lineValue == TrueValue.ToLower()) return true;
             else throw new Exception("String does not represent a boolean value.");
         }
 

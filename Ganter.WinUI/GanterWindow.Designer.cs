@@ -29,20 +29,6 @@
         private void InitializeComponent()
         {
             this.panInput = new System.Windows.Forms.Panel();
-            this.txtItem7 = new Ganter.WinUI.CueTextBox();
-            this.txtItem6 = new Ganter.WinUI.CueTextBox();
-            this.txtItem5 = new Ganter.WinUI.CueTextBox();
-            this.txtItem4 = new Ganter.WinUI.CueTextBox();
-            this.txtItem3 = new Ganter.WinUI.CueTextBox();
-            this.txtItem1 = new Ganter.WinUI.CueTextBox();
-            this.txtItem2 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt7 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt6 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt5 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt4 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt3 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt2 = new Ganter.WinUI.CueTextBox();
-            this.txtAtt1 = new Ganter.WinUI.CueTextBox();
             this.btnManual = new System.Windows.Forms.Button();
             this.chk77 = new System.Windows.Forms.CheckBox();
             this.chk67 = new System.Windows.Forms.CheckBox();
@@ -113,13 +99,39 @@
             this.lblTimeGanter = new System.Windows.Forms.Label();
             this.lblTimes = new System.Windows.Forms.Label();
             this.lblAuthor = new System.Windows.Forms.Label();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblDefaultTrue = new System.Windows.Forms.Label();
+            this.lblDefaultFalse = new System.Windows.Forms.Label();
+            this.txtDefaultTrue = new System.Windows.Forms.TextBox();
+            this.txtDefaultFalse = new System.Windows.Forms.TextBox();
+            this.lblSeparator = new System.Windows.Forms.Label();
+            this.txtSeparator = new System.Windows.Forms.TextBox();
+            this.lblOutputPath = new System.Windows.Forms.Label();
+            this.txtOutputPath = new System.Windows.Forms.TextBox();
+            this.txtItem7 = new Ganter.WinUI.CueTextBox();
+            this.txtItem6 = new Ganter.WinUI.CueTextBox();
+            this.txtItem5 = new Ganter.WinUI.CueTextBox();
+            this.txtItem4 = new Ganter.WinUI.CueTextBox();
+            this.txtItem3 = new Ganter.WinUI.CueTextBox();
+            this.txtItem1 = new Ganter.WinUI.CueTextBox();
+            this.txtItem2 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt7 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt6 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt5 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt4 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt3 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt2 = new Ganter.WinUI.CueTextBox();
+            this.txtAtt1 = new Ganter.WinUI.CueTextBox();
             this.panInput.SuspendLayout();
             this.panOutput.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panInput
             // 
+            this.panInput.Controls.Add(this.panel2);
             this.panInput.Controls.Add(this.txtItem7);
             this.panInput.Controls.Add(this.txtItem6);
             this.panInput.Controls.Add(this.txtItem5);
@@ -194,118 +206,6 @@
             this.panInput.Size = new System.Drawing.Size(874, 507);
             this.panInput.TabIndex = 0;
             // 
-            // txtItem7
-            // 
-            this.txtItem7.Cue = "Item 7";
-            this.txtItem7.Location = new System.Drawing.Point(10, 418);
-            this.txtItem7.Name = "txtItem7";
-            this.txtItem7.Size = new System.Drawing.Size(100, 22);
-            this.txtItem7.TabIndex = 82;
-            // 
-            // txtItem6
-            // 
-            this.txtItem6.Cue = "Item 6";
-            this.txtItem6.Location = new System.Drawing.Point(10, 389);
-            this.txtItem6.Name = "txtItem6";
-            this.txtItem6.Size = new System.Drawing.Size(100, 22);
-            this.txtItem6.TabIndex = 81;
-            // 
-            // txtItem5
-            // 
-            this.txtItem5.Cue = "Item 5";
-            this.txtItem5.Location = new System.Drawing.Point(10, 360);
-            this.txtItem5.Name = "txtItem5";
-            this.txtItem5.Size = new System.Drawing.Size(100, 22);
-            this.txtItem5.TabIndex = 80;
-            // 
-            // txtItem4
-            // 
-            this.txtItem4.Cue = "Item 4";
-            this.txtItem4.Location = new System.Drawing.Point(10, 331);
-            this.txtItem4.Name = "txtItem4";
-            this.txtItem4.Size = new System.Drawing.Size(100, 22);
-            this.txtItem4.TabIndex = 79;
-            // 
-            // txtItem3
-            // 
-            this.txtItem3.Cue = "Item 3";
-            this.txtItem3.Location = new System.Drawing.Point(10, 302);
-            this.txtItem3.Name = "txtItem3";
-            this.txtItem3.Size = new System.Drawing.Size(100, 22);
-            this.txtItem3.TabIndex = 78;
-            // 
-            // txtItem1
-            // 
-            this.txtItem1.Cue = "Item 1";
-            this.txtItem1.Location = new System.Drawing.Point(10, 244);
-            this.txtItem1.Name = "txtItem1";
-            this.txtItem1.Size = new System.Drawing.Size(100, 22);
-            this.txtItem1.TabIndex = 77;
-            // 
-            // txtItem2
-            // 
-            this.txtItem2.Cue = "Item 2";
-            this.txtItem2.Location = new System.Drawing.Point(10, 273);
-            this.txtItem2.Name = "txtItem2";
-            this.txtItem2.Size = new System.Drawing.Size(100, 22);
-            this.txtItem2.TabIndex = 76;
-            // 
-            // txtAtt7
-            // 
-            this.txtAtt7.Cue = "Attribute 7";
-            this.txtAtt7.Location = new System.Drawing.Point(758, 215);
-            this.txtAtt7.Name = "txtAtt7";
-            this.txtAtt7.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt7.TabIndex = 75;
-            // 
-            // txtAtt6
-            // 
-            this.txtAtt6.Cue = "Attribute 6";
-            this.txtAtt6.Location = new System.Drawing.Point(651, 215);
-            this.txtAtt6.Name = "txtAtt6";
-            this.txtAtt6.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt6.TabIndex = 74;
-            // 
-            // txtAtt5
-            // 
-            this.txtAtt5.Cue = "Attribute 5";
-            this.txtAtt5.Location = new System.Drawing.Point(544, 215);
-            this.txtAtt5.Name = "txtAtt5";
-            this.txtAtt5.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt5.TabIndex = 73;
-            // 
-            // txtAtt4
-            // 
-            this.txtAtt4.Cue = "Attribute 4";
-            this.txtAtt4.Location = new System.Drawing.Point(437, 215);
-            this.txtAtt4.Name = "txtAtt4";
-            this.txtAtt4.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt4.TabIndex = 72;
-            // 
-            // txtAtt3
-            // 
-            this.txtAtt3.Cue = "Attribute 3";
-            this.txtAtt3.Location = new System.Drawing.Point(330, 215);
-            this.txtAtt3.Name = "txtAtt3";
-            this.txtAtt3.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt3.TabIndex = 71;
-            // 
-            // txtAtt2
-            // 
-            this.txtAtt2.Cue = "Attribute 2";
-            this.txtAtt2.Location = new System.Drawing.Point(223, 215);
-            this.txtAtt2.Name = "txtAtt2";
-            this.txtAtt2.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt2.TabIndex = 70;
-            // 
-            // txtAtt1
-            // 
-            this.txtAtt1.Cue = "Attribute 1";
-            this.txtAtt1.Location = new System.Drawing.Point(116, 215);
-            this.txtAtt1.Name = "txtAtt1";
-            this.txtAtt1.Size = new System.Drawing.Size(100, 22);
-            this.txtAtt1.TabIndex = 69;
-            // 
             // btnManual
             // 
             this.btnManual.Location = new System.Drawing.Point(651, 460);
@@ -314,6 +214,7 @@
             this.btnManual.TabIndex = 68;
             this.btnManual.Text = "Process manual input";
             this.btnManual.UseVisualStyleBackColor = true;
+            this.btnManual.Click += new System.EventHandler(this.btnManual_Click);
             // 
             // chk77
             // 
@@ -764,6 +665,7 @@
             this.btnFile.TabIndex = 4;
             this.btnFile.Text = "Search file and process";
             this.btnFile.UseVisualStyleBackColor = true;
+            this.btnFile.Click += new System.EventHandler(this.btnFile_Click);
             // 
             // txtFile
             // 
@@ -802,6 +704,8 @@
             // 
             // panOutput
             // 
+            this.panOutput.Controls.Add(this.txtOutputPath);
+            this.panOutput.Controls.Add(this.lblOutputPath);
             this.panOutput.Controls.Add(this.lblWarning);
             this.panOutput.Controls.Add(this.chkVisualization);
             this.panOutput.Controls.Add(this.chkItems);
@@ -811,14 +715,14 @@
             this.panOutput.Controls.Add(this.lblOutput);
             this.panOutput.Location = new System.Drawing.Point(893, 13);
             this.panOutput.Name = "panOutput";
-            this.panOutput.Size = new System.Drawing.Size(301, 309);
+            this.panOutput.Size = new System.Drawing.Size(301, 353);
             this.panOutput.TabIndex = 1;
             // 
             // lblWarning
             // 
             this.lblWarning.AutoSize = true;
             this.lblWarning.LinkColor = System.Drawing.Color.Red;
-            this.lblWarning.Location = new System.Drawing.Point(30, 227);
+            this.lblWarning.Location = new System.Drawing.Point(30, 275);
             this.lblWarning.Name = "lblWarning";
             this.lblWarning.Size = new System.Drawing.Size(242, 68);
             this.lblWarning.TabIndex = 6;
@@ -830,7 +734,7 @@
             // chkVisualization
             // 
             this.chkVisualization.AutoSize = true;
-            this.chkVisualization.Location = new System.Drawing.Point(7, 183);
+            this.chkVisualization.Location = new System.Drawing.Point(7, 242);
             this.chkVisualization.Name = "chkVisualization";
             this.chkVisualization.Size = new System.Drawing.Size(153, 21);
             this.chkVisualization.TabIndex = 5;
@@ -840,7 +744,7 @@
             // chkItems
             // 
             this.chkItems.AutoSize = true;
-            this.chkItems.Location = new System.Drawing.Point(7, 155);
+            this.chkItems.Location = new System.Drawing.Point(7, 214);
             this.chkItems.Name = "chkItems";
             this.chkItems.Size = new System.Drawing.Size(112, 21);
             this.chkItems.TabIndex = 4;
@@ -852,7 +756,7 @@
             this.chkAttributes.AutoSize = true;
             this.chkAttributes.Checked = true;
             this.chkAttributes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAttributes.Location = new System.Drawing.Point(7, 128);
+            this.chkAttributes.Location = new System.Drawing.Point(7, 187);
             this.chkAttributes.Name = "chkAttributes";
             this.chkAttributes.Size = new System.Drawing.Size(143, 21);
             this.chkAttributes.TabIndex = 3;
@@ -863,7 +767,7 @@
             // 
             this.rbTranReduction.AutoSize = true;
             this.rbTranReduction.Checked = true;
-            this.rbTranReduction.Location = new System.Drawing.Point(7, 81);
+            this.rbTranReduction.Location = new System.Drawing.Point(7, 138);
             this.rbTranReduction.Name = "rbTranReduction";
             this.rbTranReduction.Size = new System.Drawing.Size(154, 21);
             this.rbTranReduction.TabIndex = 2;
@@ -874,12 +778,13 @@
             // rbFull
             // 
             this.rbFull.AutoSize = true;
-            this.rbFull.Location = new System.Drawing.Point(7, 53);
+            this.rbFull.Location = new System.Drawing.Point(7, 110);
             this.rbFull.Name = "rbFull";
             this.rbFull.Size = new System.Drawing.Size(109, 21);
             this.rbFull.TabIndex = 1;
             this.rbFull.Text = "Full relations";
             this.rbFull.UseVisualStyleBackColor = true;
+            this.rbFull.CheckedChanged += new System.EventHandler(this.rbFull_CheckedChanged);
             // 
             // lblOutput
             // 
@@ -897,9 +802,9 @@
             this.panel1.Controls.Add(this.lblTimeLattice);
             this.panel1.Controls.Add(this.lblTimeGanter);
             this.panel1.Controls.Add(this.lblTimes);
-            this.panel1.Location = new System.Drawing.Point(894, 329);
+            this.panel1.Location = new System.Drawing.Point(893, 373);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 191);
+            this.panel1.Size = new System.Drawing.Size(300, 147);
             this.panel1.TabIndex = 2;
             // 
             // lblTimeTotal
@@ -956,6 +861,203 @@
             this.lblAuthor.TabIndex = 3;
             this.lblAuthor.Text = "Created by: Ľubomír Sokolovský (SOK0015) - 2015";
             // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFileDialog";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.txtSeparator);
+            this.panel2.Controls.Add(this.lblSeparator);
+            this.panel2.Controls.Add(this.txtDefaultFalse);
+            this.panel2.Controls.Add(this.txtDefaultTrue);
+            this.panel2.Controls.Add(this.lblDefaultFalse);
+            this.panel2.Controls.Add(this.lblDefaultTrue);
+            this.panel2.Location = new System.Drawing.Point(664, 4);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 196);
+            this.panel2.TabIndex = 83;
+            // 
+            // lblDefaultTrue
+            // 
+            this.lblDefaultTrue.AutoSize = true;
+            this.lblDefaultTrue.Location = new System.Drawing.Point(4, 4);
+            this.lblDefaultTrue.Name = "lblDefaultTrue";
+            this.lblDefaultTrue.Size = new System.Drawing.Size(177, 17);
+            this.lblDefaultTrue.TabIndex = 0;
+            this.lblDefaultTrue.Text = "\'True\' value representative";
+            // 
+            // lblDefaultFalse
+            // 
+            this.lblDefaultFalse.AutoSize = true;
+            this.lblDefaultFalse.Location = new System.Drawing.Point(4, 66);
+            this.lblDefaultFalse.Name = "lblDefaultFalse";
+            this.lblDefaultFalse.Size = new System.Drawing.Size(181, 17);
+            this.lblDefaultFalse.TabIndex = 1;
+            this.lblDefaultFalse.Text = "\'False\' value representative";
+            // 
+            // txtDefaultTrue
+            // 
+            this.txtDefaultTrue.Location = new System.Drawing.Point(4, 25);
+            this.txtDefaultTrue.Name = "txtDefaultTrue";
+            this.txtDefaultTrue.Size = new System.Drawing.Size(100, 22);
+            this.txtDefaultTrue.TabIndex = 2;
+            this.txtDefaultTrue.Text = "1";
+            // 
+            // txtDefaultFalse
+            // 
+            this.txtDefaultFalse.Location = new System.Drawing.Point(4, 87);
+            this.txtDefaultFalse.Name = "txtDefaultFalse";
+            this.txtDefaultFalse.Size = new System.Drawing.Size(100, 22);
+            this.txtDefaultFalse.TabIndex = 3;
+            this.txtDefaultFalse.Text = "0";
+            // 
+            // lblSeparator
+            // 
+            this.lblSeparator.AutoSize = true;
+            this.lblSeparator.Location = new System.Drawing.Point(4, 130);
+            this.lblSeparator.Name = "lblSeparator";
+            this.lblSeparator.Size = new System.Drawing.Size(100, 17);
+            this.lblSeparator.TabIndex = 4;
+            this.lblSeparator.Text = "CSV separator";
+            // 
+            // txtSeparator
+            // 
+            this.txtSeparator.Location = new System.Drawing.Point(4, 151);
+            this.txtSeparator.Name = "txtSeparator";
+            this.txtSeparator.Size = new System.Drawing.Size(100, 22);
+            this.txtSeparator.TabIndex = 5;
+            this.txtSeparator.Text = ";";
+            // 
+            // lblOutputPath
+            // 
+            this.lblOutputPath.AutoSize = true;
+            this.lblOutputPath.Location = new System.Drawing.Point(7, 33);
+            this.lblOutputPath.Name = "lblOutputPath";
+            this.lblOutputPath.Size = new System.Drawing.Size(123, 17);
+            this.lblOutputPath.TabIndex = 7;
+            this.lblOutputPath.Text = "Output folder path";
+            // 
+            // txtOutputPath
+            // 
+            this.txtOutputPath.Location = new System.Drawing.Point(4, 54);
+            this.txtOutputPath.Name = "txtOutputPath";
+            this.txtOutputPath.Size = new System.Drawing.Size(291, 22);
+            this.txtOutputPath.TabIndex = 8;
+            this.txtOutputPath.Text = "c:\\Ganter\\";
+            // 
+            // txtItem7
+            // 
+            this.txtItem7.Cue = "Item 7";
+            this.txtItem7.Location = new System.Drawing.Point(10, 418);
+            this.txtItem7.Name = "txtItem7";
+            this.txtItem7.Size = new System.Drawing.Size(100, 22);
+            this.txtItem7.TabIndex = 82;
+            // 
+            // txtItem6
+            // 
+            this.txtItem6.Cue = "Item 6";
+            this.txtItem6.Location = new System.Drawing.Point(10, 389);
+            this.txtItem6.Name = "txtItem6";
+            this.txtItem6.Size = new System.Drawing.Size(100, 22);
+            this.txtItem6.TabIndex = 81;
+            // 
+            // txtItem5
+            // 
+            this.txtItem5.Cue = "Item 5";
+            this.txtItem5.Location = new System.Drawing.Point(10, 360);
+            this.txtItem5.Name = "txtItem5";
+            this.txtItem5.Size = new System.Drawing.Size(100, 22);
+            this.txtItem5.TabIndex = 80;
+            // 
+            // txtItem4
+            // 
+            this.txtItem4.Cue = "Item 4";
+            this.txtItem4.Location = new System.Drawing.Point(10, 331);
+            this.txtItem4.Name = "txtItem4";
+            this.txtItem4.Size = new System.Drawing.Size(100, 22);
+            this.txtItem4.TabIndex = 79;
+            // 
+            // txtItem3
+            // 
+            this.txtItem3.Cue = "Item 3";
+            this.txtItem3.Location = new System.Drawing.Point(10, 302);
+            this.txtItem3.Name = "txtItem3";
+            this.txtItem3.Size = new System.Drawing.Size(100, 22);
+            this.txtItem3.TabIndex = 78;
+            // 
+            // txtItem1
+            // 
+            this.txtItem1.Cue = "Item 1";
+            this.txtItem1.Location = new System.Drawing.Point(10, 244);
+            this.txtItem1.Name = "txtItem1";
+            this.txtItem1.Size = new System.Drawing.Size(100, 22);
+            this.txtItem1.TabIndex = 77;
+            // 
+            // txtItem2
+            // 
+            this.txtItem2.Cue = "Item 2";
+            this.txtItem2.Location = new System.Drawing.Point(10, 273);
+            this.txtItem2.Name = "txtItem2";
+            this.txtItem2.Size = new System.Drawing.Size(100, 22);
+            this.txtItem2.TabIndex = 76;
+            // 
+            // txtAtt7
+            // 
+            this.txtAtt7.Cue = "Attribute 7";
+            this.txtAtt7.Location = new System.Drawing.Point(758, 215);
+            this.txtAtt7.Name = "txtAtt7";
+            this.txtAtt7.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt7.TabIndex = 75;
+            // 
+            // txtAtt6
+            // 
+            this.txtAtt6.Cue = "Attribute 6";
+            this.txtAtt6.Location = new System.Drawing.Point(651, 215);
+            this.txtAtt6.Name = "txtAtt6";
+            this.txtAtt6.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt6.TabIndex = 74;
+            // 
+            // txtAtt5
+            // 
+            this.txtAtt5.Cue = "Attribute 5";
+            this.txtAtt5.Location = new System.Drawing.Point(544, 215);
+            this.txtAtt5.Name = "txtAtt5";
+            this.txtAtt5.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt5.TabIndex = 73;
+            // 
+            // txtAtt4
+            // 
+            this.txtAtt4.Cue = "Attribute 4";
+            this.txtAtt4.Location = new System.Drawing.Point(437, 215);
+            this.txtAtt4.Name = "txtAtt4";
+            this.txtAtt4.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt4.TabIndex = 72;
+            // 
+            // txtAtt3
+            // 
+            this.txtAtt3.Cue = "Attribute 3";
+            this.txtAtt3.Location = new System.Drawing.Point(330, 215);
+            this.txtAtt3.Name = "txtAtt3";
+            this.txtAtt3.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt3.TabIndex = 71;
+            // 
+            // txtAtt2
+            // 
+            this.txtAtt2.Cue = "Attribute 2";
+            this.txtAtt2.Location = new System.Drawing.Point(223, 215);
+            this.txtAtt2.Name = "txtAtt2";
+            this.txtAtt2.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt2.TabIndex = 70;
+            // 
+            // txtAtt1
+            // 
+            this.txtAtt1.Cue = "Attribute 1";
+            this.txtAtt1.Location = new System.Drawing.Point(116, 215);
+            this.txtAtt1.Name = "txtAtt1";
+            this.txtAtt1.Size = new System.Drawing.Size(100, 22);
+            this.txtAtt1.TabIndex = 69;
+            // 
             // GanterWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -965,6 +1067,9 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panOutput);
             this.Controls.Add(this.panInput);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "GanterWindow";
             this.Text = "Ganter Algorithm";
             this.panInput.ResumeLayout(false);
@@ -973,6 +1078,8 @@
             this.panOutput.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1065,6 +1172,16 @@
         private CueTextBox txtAtt3;
         private CueTextBox txtAtt2;
         private CueTextBox txtAtt1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox txtDefaultFalse;
+        private System.Windows.Forms.TextBox txtDefaultTrue;
+        private System.Windows.Forms.Label lblDefaultFalse;
+        private System.Windows.Forms.Label lblDefaultTrue;
+        private System.Windows.Forms.TextBox txtSeparator;
+        private System.Windows.Forms.Label lblSeparator;
+        private System.Windows.Forms.TextBox txtOutputPath;
+        private System.Windows.Forms.Label lblOutputPath;
     }
 }
 

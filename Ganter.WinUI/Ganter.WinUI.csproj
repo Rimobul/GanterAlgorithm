@@ -89,6 +89,10 @@
       <Project>{b00cdd7e-0429-4980-a096-5446508fb683}</Project>
       <Name>Ganter.Algorithm</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ganter.Parsers\Ganter.Parsers.csproj">
+      <Project>{a884a9c1-92ae-4cf6-847e-b251dc87a1ed}</Project>
+      <Name>Ganter.Parsers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
