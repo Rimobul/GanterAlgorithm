@@ -29,7 +29,7 @@ namespace Ganter.WinUI
                 string defaultTrue = txtDefaultTrue.Text;
                 string defaultFalse = txtDefaultFalse.Text;
 
-                if(string.IsNullOrWhiteSpace(defaultFalse) || string.IsNullOrWhiteSpace(defaultTrue))
+                if (string.IsNullOrWhiteSpace(defaultFalse) || string.IsNullOrWhiteSpace(defaultTrue))
                 {
                     MessageBox.Show("Both true and false value representatives have to be set!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -37,7 +37,7 @@ namespace Ganter.WinUI
 
                 string separator = txtSeparator.Text;
 
-                if(string.IsNullOrEmpty(separator))
+                if (string.IsNullOrEmpty(separator))
                 {
                     MessageBox.Show("Separator must be a string sequence or a character (including whitespaces)!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -52,7 +52,7 @@ namespace Ganter.WinUI
 
                         GenerateOutput(context);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
@@ -72,7 +72,7 @@ namespace Ganter.WinUI
             {
                 fileStream.Dispose();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -80,6 +80,8 @@ namespace Ganter.WinUI
 
         private void btnManual_Click(object sender, EventArgs e)
         {
+            GenerateOutput(TestContexts.GenerateOneToSeven());
+
             List<Item> items = GetItems();
             List<Algorithm.Attribute> attributes = GetAttributes();
             bool[,] matrix = GetMatrix(items.Count, attributes.Count);
@@ -91,9 +93,11 @@ namespace Ganter.WinUI
 
         private void GenerateOutput(FormalContext context)
         {
-            if(rbTranReduction.Checked)
+            if (rbTranReduction.Checked)
             {
                 Lattice lattice = new Lattice(context.PerformAlgorithm());
+
+                SaveIntoFile(lattice.ToString());
             }
             else
             {
@@ -101,17 +105,40 @@ namespace Ganter.WinUI
             }
         }
 
+        private void SaveIntoFile(string output)
+        {
+            if(string.IsNullOrWhiteSpace(txtOutputPath.Text))
+            {
+                MessageBox.Show("Output folder cannot be empty!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if(!Directory.Exists(txtOutputPath.Text))
+            {
+                Directory.CreateDirectory(txtOutputPath.Text);
+            }
+
+            string filePath = Path.Combine(txtOutputPath.Text, new string(DateTime.Now.ToString().Where(c => char.IsLetterOrDigit(c)).ToArray()));
+            filePath += ".txt";
+
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                writer.Write(output);
+            }
+        }
+
         private bool[,] GetMatrix(int itemsCount, int attributesCount)
         {
             bool[,] result = new bool[itemsCount, attributesCount];
-            for(int i = 1; i <= itemsCount; i++)
+            for (int i = 1; i <= itemsCount; i++)
             {
-                for(int j = 1; j <= attributesCount; j++)
+                for (int j = 1; j <= attributesCount; j++)
                 {
-                    object control = Controls.Find("chk" + j.ToString() + i.ToString(), true);
-                    if(control != null && control.GetType() == typeof(CheckBox))
+                    string controlName = "chk" + i.ToString() + j.ToString();
+                    object control = Controls.Find(controlName, true).FirstOrDefault();
+                    if (control != null && control.GetType() == typeof(CheckBox))
                     {
-                        result[i, j] = (control as CheckBox).Checked;
+                        result[i - 1, j - 1] = (control as CheckBox).Checked;
                     }
                 }
             }
@@ -124,32 +151,31 @@ namespace Ganter.WinUI
             if (!string.IsNullOrWhiteSpace(txtItem1.Text))
             {
                 result.Add(new Item() { Name = txtItem1.Text });
+                if (!string.IsNullOrWhiteSpace(txtItem2.Text))
+                {
+                    result.Add(new Item() { Name = txtItem2.Text });
+                    if (!string.IsNullOrWhiteSpace(txtItem3.Text))
+                    {
+                        result.Add(new Item() { Name = txtItem3.Text });
+                        if (!string.IsNullOrWhiteSpace(txtItem4.Text))
+                        {
+                            result.Add(new Item() { Name = txtItem4.Text });
+                            if (!string.IsNullOrWhiteSpace(txtItem5.Text))
+                            {
+                                result.Add(new Item() { Name = txtItem5.Text });
+                                if (!string.IsNullOrWhiteSpace(txtItem6.Text))
+                                {
+                                    result.Add(new Item() { Name = txtItem6.Text });
+                                    if (!string.IsNullOrWhiteSpace(txtItem7.Text))
+                                    {
+                                        result.Add(new Item() { Name = txtItem7.Text });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            else if (!string.IsNullOrWhiteSpace(txtItem2.Text))
-            {
-                result.Add(new Item() { Name = txtItem2.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtItem3.Text))
-            {
-                result.Add(new Item() { Name = txtItem3.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtItem4.Text))
-            {
-                result.Add(new Item() { Name = txtItem4.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtItem5.Text))
-            {
-                result.Add(new Item() { Name = txtItem5.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtItem6.Text))
-            {
-                result.Add(new Item() { Name = txtItem6.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtItem7.Text))
-            {
-                result.Add(new Item() { Name = txtItem7.Text });
-            }
-            else return result;
 
             return result;
         }
@@ -160,32 +186,31 @@ namespace Ganter.WinUI
             if (!string.IsNullOrWhiteSpace(txtAtt1.Text))
             {
                 result.Add(new Algorithm.Attribute() { Name = txtAtt1.Text });
+                if (!string.IsNullOrWhiteSpace(txtAtt2.Text))
+                {
+                    result.Add(new Algorithm.Attribute() { Name = txtAtt2.Text });
+                    if (!string.IsNullOrWhiteSpace(txtAtt3.Text))
+                    {
+                        result.Add(new Algorithm.Attribute() { Name = txtAtt3.Text });
+                        if (!string.IsNullOrWhiteSpace(txtAtt4.Text))
+                        {
+                            result.Add(new Algorithm.Attribute() { Name = txtAtt4.Text });
+                            if (!string.IsNullOrWhiteSpace(txtAtt5.Text))
+                            {
+                                result.Add(new Algorithm.Attribute() { Name = txtAtt5.Text });
+                                if (!string.IsNullOrWhiteSpace(txtAtt6.Text))
+                                {
+                                    result.Add(new Algorithm.Attribute() { Name = txtAtt6.Text });
+                                    if (!string.IsNullOrWhiteSpace(txtAtt7.Text))
+                                    {
+                                        result.Add(new Algorithm.Attribute() { Name = txtAtt7.Text });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            else if (!string.IsNullOrWhiteSpace(txtAtt2.Text))
-            {
-                result.Add(new Algorithm.Attribute() { Name = txtAtt2.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtAtt3.Text))
-            {
-                result.Add(new Algorithm.Attribute() { Name = txtAtt3.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtAtt4.Text))
-            {
-                result.Add(new Algorithm.Attribute() { Name = txtAtt4.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtAtt5.Text))
-            {
-                result.Add(new Algorithm.Attribute() { Name = txtAtt5.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtAtt6.Text))
-            {
-                result.Add(new Algorithm.Attribute() { Name = txtAtt6.Text });
-            }
-            else if (!string.IsNullOrWhiteSpace(txtAtt7.Text))
-            {
-                result.Add(new Algorithm.Attribute() { Name = txtAtt7.Text });
-            }
-            else return result;
 
             return result;
         }

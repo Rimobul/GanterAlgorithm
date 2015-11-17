@@ -84,5 +84,41 @@ namespace Ganter.WinUI
 
             return new FormalContext(attributes, papers, matrix, true);
         }
+
+        public static FormalContext GenerateOneToSeven()
+        {
+            List<Algorithm.Attribute> attributes = new List<Algorithm.Attribute>()
+            {
+                new Algorithm.Attribute() {Name="composit" },
+                new Algorithm.Attribute() {Name="even" },
+                new Algorithm.Attribute() {Name="odd" },
+                new Algorithm.Attribute() {Name="prime" },
+                new Algorithm.Attribute() {Name="square" }
+            };
+
+            List<Item> numbers = new List<Item>()
+            {
+                new Item() {Name="1" },
+                new Item() {Name="2" },
+                new Item() {Name="3" },
+                new Item() {Name="4" },
+                new Item() {Name="5" },
+                new Item() {Name="6" },
+                new Item() {Name="7" },
+            };
+
+            bool[,] matrix = new bool[,]
+            {
+                {false, false, true, false, true },
+                {false, true, false, true, false },
+                {false, false, true, true, false },
+                {true, true, false, false, true },
+                {false, false, true, true, false },
+                {true, true, false, false, false },
+                {false, false, true, true, false }
+            };
+
+            return new FormalContext(attributes, numbers, matrix, true);
+        }
     }
 }
