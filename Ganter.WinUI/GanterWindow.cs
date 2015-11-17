@@ -80,8 +80,6 @@ namespace Ganter.WinUI
 
         private void btnManual_Click(object sender, EventArgs e)
         {
-            GenerateOutput(TestContexts.GenerateOneToSeven());
-
             List<Item> items = GetItems();
             List<Algorithm.Attribute> attributes = GetAttributes();
             bool[,] matrix = GetMatrix(items.Count, attributes.Count);
