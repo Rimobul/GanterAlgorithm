@@ -112,6 +112,9 @@ namespace Ganter.Algorithm
 
             while (wasFound)
             {
+                if (!Attributes.Any(a => !setA.Contains(a)))
+                    return resultSets;
+
                 foreach (var mi in Attributes.Where(a => !setA.Contains(a)).OrderByDescending(a => a.LecticPosition))
                 {
                     List<Attribute> closure = mi.Closure(setA, this);

@@ -86,23 +86,58 @@ namespace Ganter.WinUI
             List<Algorithm.Attribute> attributes = GetAttributes();
             bool[,] matrix = GetMatrix(items.Count, attributes.Count);
 
-            FormalContext context = new FormalContext(attributes, items, matrix, true);
+            try
+            {
+                FormalContext context = new FormalContext(attributes, items, matrix, true);
 
-            GenerateOutput(context);
+                GenerateOutput(context);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         private void GenerateOutput(FormalContext context)
         {
+            Lattice lattice = new Lattice(context.PerformAlgorithm());
+            StringBuilder output = new StringBuilder();
+
             if (rbTranReduction.Checked)
             {
-                Lattice lattice = new Lattice(context.PerformAlgorithm());
+                if(chkAttributes.Checked)
+                {
+                    output.AppendLine("Attributes");
+                    output.AppendLine(lattice.ReducedAttributeString(true));
+                    output.AppendLine();
+                }
 
-                SaveIntoFile(lattice.ToString());
+                if (chkItems.Checked)
+                {
+                    output.AppendLine("Items");
+                    output.AppendLine(lattice.ReducedItemString(true, context));
+                    output.AppendLine();
+                }
             }
             else
             {
+                if (chkAttributes.Checked)
+                {
+                    output.AppendLine("Attributes");
+                    output.AppendLine(lattice.FullAttributeString(true, context));
+                    output.AppendLine();
+                }
 
+                if (chkItems.Checked)
+                {
+                    output.AppendLine("Items");
+                    output.AppendLine(lattice.FullItemString(true, context));
+                    output.AppendLine();
+                }
             }
+
+            SaveIntoFile(output.ToString());
         }
 
         private void SaveIntoFile(string output)

@@ -50,14 +50,98 @@ namespace Ganter.Algorithm
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            return ReducedAttributeString(true);
+        }
 
-            foreach (int level in Sets.Select(s => s.Level).Distinct())
+        public string ReducedAttributeString(bool includeSubsets)
+        {
+            StringBuilder sb = new StringBuilder("Level:\tSet:\r\n");
+
+            foreach (var set in Sets)
             {
-                sb.AppendLine(string.Format("{0} : {1}", level, string.Join(" + ", Sets
-                                                                                .Where(s => s.Level == level)
-                                                                                .Select(s => "{" + string.Join(", ", s.AttributeSet
-                                                                                                                        .Select(l => l.Name)) + "}"))));
+                sb.AppendLine(set.ToString());
+
+                if (includeSubsets && set.Subsets.Any())
+                {
+                    sb.AppendLine("\t\tSubsets:");
+
+                    foreach (var subset in set.Subsets)
+                    {
+                        sb.AppendLine("\t\t{" + string.Join(",", subset.AttributeSet.Select(a => a.Name)) + "}");
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public string ReducedItemString(bool includeSubsets, FormalContext context)
+        {
+            StringBuilder sb = new StringBuilder("Level:\tSet:\r\n");
+
+            foreach(var set in Sets)
+            {
+                sb.AppendLine(set.Level.ToString() + "{" + string.Join(", ", context.Intent(set.AttributeSet).ToArray().Select(i => i.Name)) + "}");
+
+                if(includeSubsets && set.Subsets.Any())
+                {
+                    sb.AppendLine("\t\tSupersets:");
+
+                    foreach(var subset in set.Subsets)
+                    {
+                        sb.AppendLine("\t\t{" + string.Join(", ", context.Intent(subset.AttributeSet).ToArray().Select(i => i.Name)) + "}");
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public string FullAttributeString(bool includeSubsets, FormalContext context)
+        {
+            StringBuilder sb = new StringBuilder("Level:\tSet:\r\n");
+
+            foreach (var set in Sets)
+            {
+                sb.AppendLine(set.ToString());
+
+                if (includeSubsets)
+                {
+                    var subsets = Sets.Select(s => s.AttributeSet).Where(a => !a.SetEquals(set.AttributeSet) && set.AttributeSet.Contains(a)).ToArray();
+                    if (subsets == null || subsets.Length <= 0) continue;
+
+                    sb.AppendLine("\t\tSubsets:");
+
+                    foreach (var subset in subsets)
+                    {
+                        sb.AppendLine("\t\t{" + string.Join(",", subset.Select(a => a.Name)) + "}");
+                    }
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        public string FullItemString(bool includeSubsets, FormalContext context)
+        {
+            StringBuilder sb = new StringBuilder("Level:\tSet:\r\n");
+
+            foreach (var set in Sets)
+            {
+                sb.AppendLine(set.Level.ToString() + "{" + string.Join(", ", context.Intent(set.AttributeSet).ToArray().Select(i => i.Name)) + "}");
+
+                if (includeSubsets)
+                {
+                    var subsets = Sets.Select(s => s.AttributeSet).Where(a => !a.SetEquals(set.AttributeSet) && set.AttributeSet.Contains(a)).ToArray();
+                    if (subsets == null || subsets.Length <= 0) continue;
+
+                    sb.AppendLine("\t\tSupersets:");
+
+                    foreach (var subset in subsets)
+                    {
+                        sb.AppendLine("\t\t{" + string.Join(",", context.Intent(subset).Select(a => a.Name)) + "}");
+                    }
+                }
             }
 
             return sb.ToString();
