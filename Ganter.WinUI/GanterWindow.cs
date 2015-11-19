@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,6 +16,11 @@ namespace Ganter.WinUI
 {
     public partial class GanterWindow : Form
     {
+        private Stopwatch inputStop = new Stopwatch();
+        private Stopwatch ganterStop = new Stopwatch();
+        private Stopwatch latticeStop = new Stopwatch();
+        private Stopwatch outputStop = new Stopwatch();
+
         public GanterWindow()
         {
             InitializeComponent();
@@ -47,8 +53,11 @@ namespace Ganter.WinUI
                 {
                     try
                     {
-                        CsvParser parser = new CsvParser(fileStream, defaultTrue, defaultFalse, separator);
+                        inputStop.Start();
+                        CsvParser parser = new CsvParser(fileStream, defaultTrue, defaultFalse, separator);                        
                         FormalContext context = parser.ParseContext();
+                        inputStop.Stop();
+                        lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
 
                         GenerateOutput(context);
                     }
@@ -80,6 +89,7 @@ namespace Ganter.WinUI
 
         private void btnManual_Click(object sender, EventArgs e)
         {
+            inputStop.Start();
             List<Item> items = GetItems();
             List<Algorithm.Attribute> attributes = GetAttributes();
             bool[,] matrix = GetMatrix(items.Count, attributes.Count);
@@ -87,11 +97,13 @@ namespace Ganter.WinUI
             try
             {
                 FormalContext context = new FormalContext(attributes, items, matrix, true);
-
+                inputStop.Stop();
+                lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
                 GenerateOutput(context);
             }
             catch(Exception ex)
             {
+                inputStop.Stop();
                 MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -99,7 +111,17 @@ namespace Ganter.WinUI
 
         private void GenerateOutput(FormalContext context)
         {
-            Lattice lattice = new Lattice(context.PerformAlgorithm());
+            ganterStop.Start();
+            var ganterResult = context.PerformAlgorithm();
+            ganterStop.Stop();
+            lblTimeGanter.Text = "Ganter algorithm: " + ganterStop.Elapsed.ToString("G");
+
+            latticeStop.Start();
+            Lattice lattice = new Lattice(ganterResult);
+            latticeStop.Stop();
+            lblTimeLattice.Text = "Lattice creation: " + latticeStop.Elapsed.ToString("G");
+
+            outputStop.Start();
             StringBuilder output = new StringBuilder();
 
             if (rbTranReduction.Checked)
@@ -136,6 +158,14 @@ namespace Ganter.WinUI
             }
 
             SaveIntoFile(output.ToString());
+            outputStop.Stop();
+            lblTimeOutput.Text = "Output creation: " + outputStop.Elapsed.ToString("G");
+            lblTimeTotal.Text = "Total time: " + (inputStop.Elapsed + ganterStop.Elapsed + latticeStop.Elapsed + outputStop.Elapsed).ToString("G");
+
+            inputStop.Reset();
+            ganterStop.Reset();
+            latticeStop.Reset();
+            outputStop.Reset();
         }
 
         private void SaveIntoFile(string output)
@@ -158,6 +188,8 @@ namespace Ganter.WinUI
             {
                 writer.Write(output);
             }
+
+            Process.Start(filePath);
         }
 
         private bool[,] GetMatrix(int itemsCount, int attributesCount)
