@@ -280,9 +280,34 @@ namespace Ganter.WinUI
             return result;
         }
 
-        private void rbFull_CheckedChanged(object sender, EventArgs e)
+        private void btnTestPlanets_Click(object sender, EventArgs e)
         {
-            chkVisualization.Enabled = !rbFull.Checked;
+            inputStop.Start();
+            FormalContext context = TestContexts.GeneratePlanets();
+            inputStop.Stop();
+            lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
+
+            GenerateOutput(context);
+        }
+
+        private void btnTestPapers_Click(object sender, EventArgs e)
+        {
+            inputStop.Start();
+            FormalContext context = TestContexts.GeneratePapers();
+            inputStop.Stop();
+            lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
+
+            GenerateOutput(context);
+        }
+
+        private void btnTestNumbers_Click(object sender, EventArgs e)
+        {
+            inputStop.Start();
+            FormalContext context = TestContexts.GenerateOneToTen();
+            inputStop.Stop();
+            lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
+
+            GenerateOutput(context);
         }
     }
 }

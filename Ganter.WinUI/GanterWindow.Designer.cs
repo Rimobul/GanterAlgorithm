@@ -108,14 +108,13 @@
             this.panOutput = new System.Windows.Forms.Panel();
             this.txtOutputPath = new System.Windows.Forms.TextBox();
             this.lblOutputPath = new System.Windows.Forms.Label();
-            this.lblWarning = new System.Windows.Forms.LinkLabel();
-            this.chkVisualization = new System.Windows.Forms.CheckBox();
             this.chkItems = new System.Windows.Forms.CheckBox();
             this.chkAttributes = new System.Windows.Forms.CheckBox();
             this.rbTranReduction = new System.Windows.Forms.RadioButton();
             this.rbFull = new System.Windows.Forms.RadioButton();
             this.lblOutput = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInputTime = new System.Windows.Forms.Label();
             this.lblTimeTotal = new System.Windows.Forms.Label();
             this.lblTimeOutput = new System.Windows.Forms.Label();
             this.lblTimeLattice = new System.Windows.Forms.Label();
@@ -123,15 +122,21 @@
             this.lblTimes = new System.Windows.Forms.Label();
             this.lblAuthor = new System.Windows.Forms.Label();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.lblInputTime = new System.Windows.Forms.Label();
+            this.panTests = new System.Windows.Forms.Panel();
+            this.btnTestNumbers = new System.Windows.Forms.Button();
+            this.btnTestPapers = new System.Windows.Forms.Button();
+            this.btnTestPlanets = new System.Windows.Forms.Button();
+            this.lblTestTitle = new System.Windows.Forms.Label();
             this.panInput.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panOutput.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panTests.SuspendLayout();
             this.SuspendLayout();
             // 
             // panInput
             // 
+            this.panInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panInput.Controls.Add(this.panel2);
             this.panInput.Controls.Add(this.txtItem7);
             this.panInput.Controls.Add(this.txtItem6);
@@ -209,6 +214,7 @@
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.txtSeparator);
             this.panel2.Controls.Add(this.lblSeparator);
             this.panel2.Controls.Add(this.txtDefaultFalse);
@@ -387,7 +393,7 @@
             // 
             this.btnManual.Location = new System.Drawing.Point(651, 460);
             this.btnManual.Name = "btnManual";
-            this.btnManual.Size = new System.Drawing.Size(179, 23);
+            this.btnManual.Size = new System.Drawing.Size(179, 33);
             this.btnManual.TabIndex = 16;
             this.btnManual.Text = "Process manual input";
             this.btnManual.UseVisualStyleBackColor = true;
@@ -838,7 +844,7 @@
             // 
             this.btnFile.Location = new System.Drawing.Point(454, 89);
             this.btnFile.Name = "btnFile";
-            this.btnFile.Size = new System.Drawing.Size(193, 24);
+            this.btnFile.Size = new System.Drawing.Size(193, 30);
             this.btnFile.TabIndex = 1;
             this.btnFile.Text = "Search file and process";
             this.btnFile.UseVisualStyleBackColor = true;
@@ -881,10 +887,9 @@
             // 
             // panOutput
             // 
+            this.panOutput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panOutput.Controls.Add(this.txtOutputPath);
             this.panOutput.Controls.Add(this.lblOutputPath);
-            this.panOutput.Controls.Add(this.lblWarning);
-            this.panOutput.Controls.Add(this.chkVisualization);
             this.panOutput.Controls.Add(this.chkItems);
             this.panOutput.Controls.Add(this.chkAttributes);
             this.panOutput.Controls.Add(this.rbTranReduction);
@@ -892,7 +897,7 @@
             this.panOutput.Controls.Add(this.lblOutput);
             this.panOutput.Location = new System.Drawing.Point(893, 13);
             this.panOutput.Name = "panOutput";
-            this.panOutput.Size = new System.Drawing.Size(301, 353);
+            this.panOutput.Size = new System.Drawing.Size(301, 220);
             this.panOutput.TabIndex = 1;
             // 
             // txtOutputPath
@@ -912,33 +917,10 @@
             this.lblOutputPath.TabIndex = 7;
             this.lblOutputPath.Text = "Output folder path";
             // 
-            // lblWarning
-            // 
-            this.lblWarning.AutoSize = true;
-            this.lblWarning.LinkColor = System.Drawing.Color.Red;
-            this.lblWarning.Location = new System.Drawing.Point(30, 275);
-            this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(242, 68);
-            this.lblWarning.TabIndex = 6;
-            this.lblWarning.TabStop = true;
-            this.lblWarning.Text = "Warning!\r\nThe creation of visual lattice can last \r\nfor a long time and can cause" +
-    " high \r\nconsumption of system resources!";
-            this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // chkVisualization
-            // 
-            this.chkVisualization.AutoSize = true;
-            this.chkVisualization.Location = new System.Drawing.Point(7, 242);
-            this.chkVisualization.Name = "chkVisualization";
-            this.chkVisualization.Size = new System.Drawing.Size(153, 21);
-            this.chkVisualization.TabIndex = 5;
-            this.chkVisualization.Text = "Lattice visualization";
-            this.chkVisualization.UseVisualStyleBackColor = true;
-            // 
             // chkItems
             // 
             this.chkItems.AutoSize = true;
-            this.chkItems.Location = new System.Drawing.Point(7, 214);
+            this.chkItems.Location = new System.Drawing.Point(7, 195);
             this.chkItems.Name = "chkItems";
             this.chkItems.Size = new System.Drawing.Size(112, 21);
             this.chkItems.TabIndex = 4;
@@ -950,7 +932,7 @@
             this.chkAttributes.AutoSize = true;
             this.chkAttributes.Checked = true;
             this.chkAttributes.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAttributes.Location = new System.Drawing.Point(7, 187);
+            this.chkAttributes.Location = new System.Drawing.Point(7, 168);
             this.chkAttributes.Name = "chkAttributes";
             this.chkAttributes.Size = new System.Drawing.Size(143, 21);
             this.chkAttributes.TabIndex = 3;
@@ -961,7 +943,7 @@
             // 
             this.rbTranReduction.AutoSize = true;
             this.rbTranReduction.Checked = true;
-            this.rbTranReduction.Location = new System.Drawing.Point(7, 138);
+            this.rbTranReduction.Location = new System.Drawing.Point(7, 126);
             this.rbTranReduction.Name = "rbTranReduction";
             this.rbTranReduction.Size = new System.Drawing.Size(154, 21);
             this.rbTranReduction.TabIndex = 2;
@@ -972,13 +954,12 @@
             // rbFull
             // 
             this.rbFull.AutoSize = true;
-            this.rbFull.Location = new System.Drawing.Point(7, 110);
+            this.rbFull.Location = new System.Drawing.Point(7, 98);
             this.rbFull.Name = "rbFull";
             this.rbFull.Size = new System.Drawing.Size(109, 21);
             this.rbFull.TabIndex = 1;
             this.rbFull.Text = "Full relations";
             this.rbFull.UseVisualStyleBackColor = true;
-            this.rbFull.CheckedChanged += new System.EventHandler(this.rbFull_CheckedChanged);
             // 
             // lblOutput
             // 
@@ -991,6 +972,7 @@
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblInputTime);
             this.panel1.Controls.Add(this.lblTimeTotal);
             this.panel1.Controls.Add(this.lblTimeOutput);
@@ -1001,6 +983,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(300, 147);
             this.panel1.TabIndex = 2;
+            // 
+            // lblInputTime
+            // 
+            this.lblInputTime.AutoSize = true;
+            this.lblInputTime.Location = new System.Drawing.Point(13, 31);
+            this.lblInputTime.Name = "lblInputTime";
+            this.lblInputTime.Size = new System.Drawing.Size(116, 17);
+            this.lblInputTime.TabIndex = 5;
+            this.lblInputTime.Text = "Input processing:";
             // 
             // lblTimeTotal
             // 
@@ -1060,20 +1051,63 @@
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
-            // lblInputTime
+            // panTests
             // 
-            this.lblInputTime.AutoSize = true;
-            this.lblInputTime.Location = new System.Drawing.Point(13, 31);
-            this.lblInputTime.Name = "lblInputTime";
-            this.lblInputTime.Size = new System.Drawing.Size(116, 17);
-            this.lblInputTime.TabIndex = 5;
-            this.lblInputTime.Text = "Input processing:";
+            this.panTests.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panTests.Controls.Add(this.btnTestNumbers);
+            this.panTests.Controls.Add(this.btnTestPapers);
+            this.panTests.Controls.Add(this.btnTestPlanets);
+            this.panTests.Controls.Add(this.lblTestTitle);
+            this.panTests.Location = new System.Drawing.Point(893, 240);
+            this.panTests.Name = "panTests";
+            this.panTests.Size = new System.Drawing.Size(300, 121);
+            this.panTests.TabIndex = 4;
+            // 
+            // btnTestNumbers
+            // 
+            this.btnTestNumbers.Location = new System.Drawing.Point(41, 84);
+            this.btnTestNumbers.Name = "btnTestNumbers";
+            this.btnTestNumbers.Size = new System.Drawing.Size(206, 23);
+            this.btnTestNumbers.TabIndex = 3;
+            this.btnTestNumbers.Text = "Test numbers 1-10";
+            this.btnTestNumbers.UseVisualStyleBackColor = true;
+            this.btnTestNumbers.Click += new System.EventHandler(this.btnTestNumbers_Click);
+            // 
+            // btnTestPapers
+            // 
+            this.btnTestPapers.Location = new System.Drawing.Point(41, 54);
+            this.btnTestPapers.Name = "btnTestPapers";
+            this.btnTestPapers.Size = new System.Drawing.Size(206, 23);
+            this.btnTestPapers.TabIndex = 2;
+            this.btnTestPapers.Text = "Test papers";
+            this.btnTestPapers.UseVisualStyleBackColor = true;
+            this.btnTestPapers.Click += new System.EventHandler(this.btnTestPapers_Click);
+            // 
+            // btnTestPlanets
+            // 
+            this.btnTestPlanets.Location = new System.Drawing.Point(41, 24);
+            this.btnTestPlanets.Name = "btnTestPlanets";
+            this.btnTestPlanets.Size = new System.Drawing.Size(206, 23);
+            this.btnTestPlanets.TabIndex = 1;
+            this.btnTestPlanets.Text = "Test planets";
+            this.btnTestPlanets.UseVisualStyleBackColor = true;
+            this.btnTestPlanets.Click += new System.EventHandler(this.btnTestPlanets_Click);
+            // 
+            // lblTestTitle
+            // 
+            this.lblTestTitle.AutoSize = true;
+            this.lblTestTitle.Location = new System.Drawing.Point(5, 4);
+            this.lblTestTitle.Name = "lblTestTitle";
+            this.lblTestTitle.Size = new System.Drawing.Size(43, 17);
+            this.lblTestTitle.TabIndex = 0;
+            this.lblTestTitle.Text = "Tests";
             // 
             // GanterWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1206, 547);
+            this.Controls.Add(this.panTests);
             this.Controls.Add(this.lblAuthor);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panOutput);
@@ -1091,6 +1125,8 @@
             this.panOutput.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panTests.ResumeLayout(false);
+            this.panTests.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1159,8 +1195,6 @@
         private System.Windows.Forms.CheckBox chkAttributes;
         private System.Windows.Forms.RadioButton rbTranReduction;
         private System.Windows.Forms.RadioButton rbFull;
-        private System.Windows.Forms.LinkLabel lblWarning;
-        private System.Windows.Forms.CheckBox chkVisualization;
         private System.Windows.Forms.CheckBox chkItems;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTimeTotal;
@@ -1194,6 +1228,11 @@
         private System.Windows.Forms.TextBox txtOutputPath;
         private System.Windows.Forms.Label lblOutputPath;
         private System.Windows.Forms.Label lblInputTime;
+        private System.Windows.Forms.Panel panTests;
+        private System.Windows.Forms.Button btnTestNumbers;
+        private System.Windows.Forms.Button btnTestPapers;
+        private System.Windows.Forms.Button btnTestPlanets;
+        private System.Windows.Forms.Label lblTestTitle;
     }
 }
 
