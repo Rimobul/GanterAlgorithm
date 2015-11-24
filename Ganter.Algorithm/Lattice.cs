@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Ganter.Algorithm
 {
+    /// <summary>
+    /// A class representing the lattice formed from the result of Ganter algorithm.
+    /// </summary>
     public class Lattice
     {
+        /// <summary>
+        /// The list of sets, representing individual nodes of the lattice.
+        /// </summary>
         public List<LatticeSet> Sets { get; private set; }
 
         public Lattice(List<List<Attribute>> ganterResult)
@@ -81,7 +87,7 @@ namespace Ganter.Algorithm
 
             foreach(var set in Sets)
             {
-                sb.AppendLine(set.Level.ToString() + "{" + string.Join(", ", context.Intent(set.AttributeSet).ToArray().Select(i => i.Name)) + "}");
+                sb.AppendLine(set.Level.ToString() + " : {" + string.Join(", ", context.Intent(set.AttributeSet).ToArray().Select(i => i.Name)) + "}");
 
                 if(includeSubsets && set.Subsets.Any())
                 {
@@ -128,7 +134,7 @@ namespace Ganter.Algorithm
 
             foreach (var set in Sets)
             {
-                sb.AppendLine(set.Level.ToString() + "{" + string.Join(", ", context.Intent(set.AttributeSet).ToArray().Select(i => i.Name)) + "}");
+                sb.AppendLine(set.Level.ToString() + " : {" + string.Join(", ", context.Intent(set.AttributeSet).ToArray().Select(i => i.Name)) + "}");
 
                 if (includeSubsets)
                 {

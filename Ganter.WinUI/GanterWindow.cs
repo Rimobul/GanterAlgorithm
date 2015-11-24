@@ -54,11 +54,18 @@ namespace Ganter.WinUI
                     try
                     {
                         inputStop.Start();
-                        CsvParser parser = new CsvParser(fileStream, defaultTrue, defaultFalse, separator);                        
-                        FormalContext context = parser.ParseContext();
+                        CsvParser parser = new CsvParser(fileStream, defaultTrue, defaultFalse, separator);
+                        parser.OnThresholdsFound += Parser_OnThresholdsFound;
+                        FormalContext context = null;
+
+                        if (chkPreprocess.Checked)
+                            context = parser.PreprocessData();
+                        else
+                            context = parser.ParseContext();
+
                         inputStop.Stop();
                         lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
-
+                        parser.OnThresholdsFound -= Parser_OnThresholdsFound;
                         GenerateOutput(context);
                     }
                     catch (Exception ex)
@@ -87,6 +94,13 @@ namespace Ganter.WinUI
             }
         }
 
+        private void Parser_OnThresholdsFound(List<Algorithm.Attribute> stepAttributes)
+        {
+            inputStop.Stop();
+            // TODO: new window
+            inputStop.Start();
+        }
+
         private void btnManual_Click(object sender, EventArgs e)
         {
             inputStop.Start();
@@ -101,7 +115,7 @@ namespace Ganter.WinUI
                 lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
                 GenerateOutput(context);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 inputStop.Stop();
                 MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -126,7 +140,7 @@ namespace Ganter.WinUI
 
             if (rbTranReduction.Checked)
             {
-                if(chkAttributes.Checked)
+                if (chkAttributes.Checked)
                 {
                     output.AppendLine("Attributes");
                     output.AppendLine(lattice.ReducedAttributeString(true));
@@ -170,13 +184,13 @@ namespace Ganter.WinUI
 
         private void SaveIntoFile(string output)
         {
-            if(string.IsNullOrWhiteSpace(txtOutputPath.Text))
+            if (string.IsNullOrWhiteSpace(txtOutputPath.Text))
             {
                 MessageBox.Show("Output folder cannot be empty!", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if(!Directory.Exists(txtOutputPath.Text))
+            if (!Directory.Exists(txtOutputPath.Text))
             {
                 Directory.CreateDirectory(txtOutputPath.Text);
             }
@@ -308,6 +322,12 @@ namespace Ganter.WinUI
             lblInputTime.Text = "Input processing: " + inputStop.Elapsed.ToString("G");
 
             GenerateOutput(context);
+        }
+
+        private void chkPreprocess_CheckedChanged(object sender, EventArgs e)
+        {
+            txtDefaultFalse.Enabled = !chkPreprocess.Checked;
+            txtDefaultTrue.Enabled = !chkPreprocess.Checked;
         }
     }
 }

@@ -6,15 +6,31 @@ using System.Threading.Tasks;
 
 namespace Ganter.Algorithm
 {
+    /// <summary>
+    /// Represents a formal context. The context contains a set of attributes, items and a matrix (item x attributes).
+    /// </summary>
     public class FormalContext
     {
+        /// <summary>
+        /// The set of attributes of the formal context.
+        /// </summary>
         public List<Attribute> Attributes { get; private set; }
+        /// <summary>
+        /// The set of items of the formal context.
+        /// </summary>
         public List<Item> Items { get; private set; }
         /// <summary>
-        /// Matrix Items x Attributes
+        /// A boolean matrix of the size Items.Count x Attributes.Count. The matrix determines which items posses certain attributes.
         /// </summary>
         public bool[,] Matrix { get; private set; }
 
+        /// <summary>
+        /// Creates a new instance of formal context.
+        /// </summary>
+        /// <param name="attributes">The set of attributes of the formal context.</param>
+        /// <param name="items">The set of item of the formal context.</param>
+        /// <param name="matrix">The boolean matrix representing the item-attribute relationships. The dimensions of the matrix should be Items.Count x Attributes.Count.</param>
+        /// <param name="assignDefaultPositions">Determines, whether default lectic positions should be assigned to the attributes and items.</param>
         public FormalContext(List<Attribute> attributes, List<Item> items, bool[,] matrix, bool assignDefaultPositions)
         {
             if (attributes == null
@@ -44,11 +60,11 @@ namespace Ganter.Algorithm
             }
         }
 
-        public bool? Value(Attribute attribute, Item item)
-        {
-            return Matrix[item.MatrixOrder, attribute.LecticPosition];
-        }
-
+        /// <summary>
+        /// Creates the intent for a particular set of attributes.
+        /// </summary>
+        /// <param name="attributeSet">The attribute set, for which the intent should be created.</param>
+        /// <returns>A set of items, which possess all desired attributes.</returns>
         public IEnumerable<Item> Intent(IEnumerable<Attribute> attributeSet)
         {
             if (attributeSet == null || !attributeSet.Any())
@@ -75,6 +91,11 @@ namespace Ganter.Algorithm
             }
         }
 
+        /// <summary>
+        /// Creates the extent for a particular set of items.
+        /// </summary>
+        /// <param name="items">The item set, for which the extent should be created.</param>
+        /// <returns>A set of attributes, which are all possessed by all the provided items.</returns>
         public IEnumerable<Attribute> Extent(IEnumerable<Item> items)
         {
             if (items == null || !items.Any())
@@ -101,6 +122,10 @@ namespace Ganter.Algorithm
             }
         }
 
+        /// <summary>
+        /// Performs the Ganter algorithm.
+        /// </summary>
+        /// <returns>A set of extents.</returns>
         public List<List<Attribute>> PerformAlgorithm()
         {
             List<Attribute> setA = Extent(Items).ToList();
@@ -112,6 +137,7 @@ namespace Ganter.Algorithm
 
             while (wasFound)
             {
+                // this is the only set containing all attributes
                 if (!Attributes.Any(a => !setA.Contains(a)))
                     return resultSets;
 

@@ -127,6 +127,7 @@
             this.btnTestPapers = new System.Windows.Forms.Button();
             this.btnTestPlanets = new System.Windows.Forms.Button();
             this.lblTestTitle = new System.Windows.Forms.Label();
+            this.chkPreprocess = new System.Windows.Forms.CheckBox();
             this.panInput.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panOutput.SuspendLayout();
@@ -215,6 +216,7 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.chkPreprocess);
             this.panel2.Controls.Add(this.txtSeparator);
             this.panel2.Controls.Add(this.lblSeparator);
             this.panel2.Controls.Add(this.txtDefaultFalse);
@@ -228,7 +230,7 @@
             // 
             // txtSeparator
             // 
-            this.txtSeparator.Location = new System.Drawing.Point(4, 151);
+            this.txtSeparator.Location = new System.Drawing.Point(4, 169);
             this.txtSeparator.Name = "txtSeparator";
             this.txtSeparator.Size = new System.Drawing.Size(100, 22);
             this.txtSeparator.TabIndex = 2;
@@ -237,7 +239,7 @@
             // lblSeparator
             // 
             this.lblSeparator.AutoSize = true;
-            this.lblSeparator.Location = new System.Drawing.Point(4, 130);
+            this.lblSeparator.Location = new System.Drawing.Point(4, 148);
             this.lblSeparator.Name = "lblSeparator";
             this.lblSeparator.Size = new System.Drawing.Size(100, 17);
             this.lblSeparator.TabIndex = 4;
@@ -245,7 +247,7 @@
             // 
             // txtDefaultFalse
             // 
-            this.txtDefaultFalse.Location = new System.Drawing.Point(4, 87);
+            this.txtDefaultFalse.Location = new System.Drawing.Point(3, 120);
             this.txtDefaultFalse.Name = "txtDefaultFalse";
             this.txtDefaultFalse.Size = new System.Drawing.Size(100, 22);
             this.txtDefaultFalse.TabIndex = 1;
@@ -253,7 +255,7 @@
             // 
             // txtDefaultTrue
             // 
-            this.txtDefaultTrue.Location = new System.Drawing.Point(4, 25);
+            this.txtDefaultTrue.Location = new System.Drawing.Point(4, 74);
             this.txtDefaultTrue.Name = "txtDefaultTrue";
             this.txtDefaultTrue.Size = new System.Drawing.Size(100, 22);
             this.txtDefaultTrue.TabIndex = 0;
@@ -262,7 +264,7 @@
             // lblDefaultFalse
             // 
             this.lblDefaultFalse.AutoSize = true;
-            this.lblDefaultFalse.Location = new System.Drawing.Point(4, 66);
+            this.lblDefaultFalse.Location = new System.Drawing.Point(3, 99);
             this.lblDefaultFalse.Name = "lblDefaultFalse";
             this.lblDefaultFalse.Size = new System.Drawing.Size(181, 17);
             this.lblDefaultFalse.TabIndex = 1;
@@ -271,7 +273,7 @@
             // lblDefaultTrue
             // 
             this.lblDefaultTrue.AutoSize = true;
-            this.lblDefaultTrue.Location = new System.Drawing.Point(4, 4);
+            this.lblDefaultTrue.Location = new System.Drawing.Point(4, 53);
             this.lblDefaultTrue.Name = "lblDefaultTrue";
             this.lblDefaultTrue.Size = new System.Drawing.Size(177, 17);
             this.lblDefaultTrue.TabIndex = 0;
@@ -1102,6 +1104,17 @@
             this.lblTestTitle.TabIndex = 0;
             this.lblTestTitle.Text = "Tests";
             // 
+            // chkPreprocess
+            // 
+            this.chkPreprocess.AutoSize = true;
+            this.chkPreprocess.Location = new System.Drawing.Point(7, 15);
+            this.chkPreprocess.Name = "chkPreprocess";
+            this.chkPreprocess.Size = new System.Drawing.Size(134, 21);
+            this.chkPreprocess.TabIndex = 5;
+            this.chkPreprocess.Text = "Preprocess data";
+            this.chkPreprocess.UseVisualStyleBackColor = true;
+            this.chkPreprocess.CheckedChanged += new System.EventHandler(this.chkPreprocess_CheckedChanged);
+            // 
             // GanterWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1233,6 +1246,7 @@
         private System.Windows.Forms.Button btnTestPapers;
         private System.Windows.Forms.Button btnTestPlanets;
         private System.Windows.Forms.Label lblTestTitle;
+        private System.Windows.Forms.CheckBox chkPreprocess;
     }
 }
 
