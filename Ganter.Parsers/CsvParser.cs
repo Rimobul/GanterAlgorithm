@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Ganter.Parsers
 {
@@ -70,21 +71,28 @@ namespace Ganter.Parsers
             {
                 string[] lines = reader.ReadLines().ToArray();
 
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    lines[i] = Regex.Replace(lines[i],
+                                    @",(?=[^""]*""(?:[^""]*""[^""]*"")*[^""]*$)",
+                                    String.Empty);
+                }
+
                 string[] attributeNames = lines[0].Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries);
                 List<Algorithm.Attribute> oldAttributes = CreateAttributes(attributeNames.Skip(1)).ToList();
 
                 List<Item> items = new List<Item>();
-                decimal[,] oldMatrix = new decimal[lines.Length - 1, oldAttributes.Count];
+                int[,] oldMatrix = new int[lines.Length - 1, oldAttributes.Count];
 
                 for (int i = 1; i < lines.Length; i++)
                 {
                     string[] lineValues = lines[i].Split(new string[] { Separator }, StringSplitOptions.RemoveEmptyEntries);
                     items.Add(new Item() { Name = lineValues[0] });
-                    
+
                     for (int j = 1; j < lineValues.Length; j++)
                     {
-                        decimal parsedNumber;
-                        if (decimal.TryParse(new string(lineValues[j].ToCharArray().Where(c => char.IsDigit(c)).ToArray()), out parsedNumber))
+                        int parsedNumber;
+                        if (int.TryParse(new string(lineValues[j].ToCharArray().Where(c => char.IsDigit(c)).ToArray()), out parsedNumber))
                         {
                             oldMatrix[i - 1, j - 1] = parsedNumber;
 
@@ -109,40 +117,38 @@ namespace Ganter.Parsers
             }
         }
 
-        private bool[,] CreateNewMatrix(List<Algorithm.Attribute> oldAttributes, decimal[,] oldMatrix, out List<Algorithm.Attribute> attributes)
+        private bool[,] CreateNewMatrix(List<Algorithm.Attribute> oldAttributes, int[,] oldMatrix, out List<Algorithm.Attribute> attributes)
         {
-            attributes = new List<Algorithm.Attribute>();
-
-            for(int i = 0; i < oldAttributes.Count; i++)
-            {
-                oldAttributes[i].LecticPosition = i;
-                attributes.AddRange(GenerateNewAttributes(oldAttributes[i]));
-            }
+            attributes = GenerateNewAttributes(oldAttributes).ToList();
 
             bool[,] result = new bool[oldMatrix.GetLength(0), attributes.Count];
 
-            for(int i =0; i < attributes.Count; i++)
+            for (int i = 0; i < attributes.Count; i++)
             {
-                for(int j =0; j < oldMatrix.GetLength(0); j++)
+                for (int j = 0; j < oldMatrix.GetLength(0); j++)
                 {
-                    result[j, i] = attributes[i].IsInRange(oldMatrix[j, attributes[i].ParentAttribute.LecticPosition);
+                    result[j, i] = attributes[i].IsInRange(oldMatrix[j, attributes[i].ParentAttribute.LecticPosition]);
                 }
             }
 
             return result;
         }
 
-        private IEnumerable<Algorithm.Attribute> GenerateNewAttributes(Algorithm.Attribute oldAttribute)
+        private IEnumerable<Algorithm.Attribute> GenerateNewAttributes(List<Algorithm.Attribute> oldAttributes)
         {
-            for (decimal start = oldAttribute.Min; start < oldAttribute.Max; start += oldAttribute.Step)
+            for (int i = 0; i < oldAttributes.Count; i++)
             {
-                yield return new Algorithm.Attribute()
+                oldAttributes[i].LecticPosition = i;
+                for (int start = oldAttributes[i].Min; start < oldAttributes[i].Max; start += oldAttributes[i].Step)
+                {
+                    yield return new Algorithm.Attribute()
                     {
-                        Name = string.Format("{0}[{1}-{2}]", oldAttribute.Name, start, start + oldAttribute.Step - 1),
+                        Name = string.Format("{0}[{1}-{2}]", oldAttributes[i].Name, start, start + oldAttributes[i].Step),
                         Min = start,
-                        Max = start + oldAttribute.Step - 1,
-                        ParentAttribute = oldAttribute
+                        Max = start + oldAttributes[i].Step,
+                        ParentAttribute = oldAttributes[i]
                     };
+                }
             }
         }
     }

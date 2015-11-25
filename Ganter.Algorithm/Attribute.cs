@@ -10,8 +10,8 @@ namespace Ganter.Algorithm
     /// </summary>
     public class Attribute
     {
-        private decimal _max;
-        private decimal _min;
+        private int _max;
+        private int _min;
 
         /// <summary>
         /// The name of the attribute.
@@ -21,7 +21,7 @@ namespace Ganter.Algorithm
         /// The lectic position of the attribute. If none is given, the formal context should assign a default value.
         /// </summary>
         public int LecticPosition { get; set; }
-        public decimal Max
+        public int Max
         {
             get { return _max; }
             set
@@ -31,7 +31,7 @@ namespace Ganter.Algorithm
             }
         }
 
-        public decimal Min
+        public int Min
         {
             get { return _min; }
             set
@@ -40,7 +40,7 @@ namespace Ganter.Algorithm
                 CalculateDefaultStep();
             }
         }
-        public decimal Step { get; set; }
+        public int Step { get; set; }
         public Attribute ParentAttribute { get; set; }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace Ganter.Algorithm
 
         public bool IsInRange(decimal number)
         {
-            return number >= Min && number <= Max;
+            return number >= Min && number < Max;
         }
 
         /// <summary>
@@ -192,16 +192,15 @@ namespace Ganter.Algorithm
 
         private void CalculateDefaultStep()
         {
-            decimal difference = Max - Min;
+            int difference = Max - Min;
 
-            if(difference <= 2)
+            if(difference <= 3)
             {
                 Step = 1;
             }
             else
             {
-                int categories = ((int)difference / 20) + 3;
-                Step = Max / categories;
+                Step = difference / 4;
             }
         }
     }

@@ -97,7 +97,14 @@ namespace Ganter.WinUI
         private void Parser_OnThresholdsFound(List<Algorithm.Attribute> stepAttributes)
         {
             inputStop.Stop();
-            // TODO: new window
+
+            Threshold threshold = new Threshold();
+            threshold.DataBind(stepAttributes);
+            if(threshold.ShowDialog() == DialogResult.OK)
+            {
+                var x = true;
+            }
+
             inputStop.Start();
         }
 
