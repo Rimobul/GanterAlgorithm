@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -195,7 +196,7 @@ namespace Ganter.Algorithm
         }
 
         // TODO prerobit na zapis do streamu
-        public string FormOutputString(List<List<Attribute>> extents, bool transitiveReduction, bool attributes, bool items, string csvSeparator)
+        public void WriteOutput(StreamWriter writer, List<List<Attribute>> extents, bool transitiveReduction, bool attributes, bool items, string csvSeparator)
         {
             List<List<Item>> intents = null;
 
@@ -203,37 +204,35 @@ namespace Ganter.Algorithm
                 intents = new List<List<Item>>();
 
             bool[,] matrix = FormOutput(extents, intents, transitiveReduction);
-            StringBuilder sb = new StringBuilder();
 
             if (attributes)
             {
-                sb.AppendLine("Extents:");
+                writer.WriteLine("Extents:");
                 foreach (var extent in extents)
                 {
-                    sb.AppendLine("{" + string.Join(", ", extent.Select(a => a.Name)) + "}");
+                    writer.WriteLine("{" + string.Join(", ", extent.Select(a => a.Name)) + "}");
                 }
             }
 
             if (items)
             {
-                sb.AppendLine("\r\nIntents:");
+                writer.WriteLine("\r\nIntents:");
                 foreach (var intent in intents)
                 {
-                    sb.AppendLine("{" + string.Join(", ", intent.Select(i => i.Name)) + "}");
+                    writer.WriteLine("{" + string.Join(", ", intent.Select(i => i.Name)) + "}");
                 }
             }
 
-            sb.AppendLine("\r\nMatrix:");
+            writer.WriteLine("\r\nMatrix:");
             for (int i = 0; i < extents.Count; i++)
             {
+                StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < extents.Count; j++)
                 {
-                    sb.Append(matrix[i, j].ToString().ToUpper() + csvSeparator + " ");
+                    sb.Append((matrix[i, j] ? "1" : "0") + csvSeparator + " ");
                 }
-                sb.AppendLine();
+                writer.WriteLine(sb.ToString());
             }
-
-            return sb.ToString();
         }
     }
 }

@@ -179,7 +179,7 @@ namespace Ganter.WinUI
             //    }
             //}
 
-            SaveIntoFile(context.FormOutputString(ganterResult, rbTranReduction.Checked, chkAttributes.Checked, chkItems.Checked, txtSeparator.Text));
+            SaveIntoFile(context, ganterResult);
             outputStop.Stop();
             lblTimeOutput.Text = "Output creation: " + outputStop.Elapsed.ToString("G");
             lblTimeTotal.Text = "Total time: " + (inputStop.Elapsed + ganterStop.Elapsed + latticeStop.Elapsed + outputStop.Elapsed).ToString("G");
@@ -190,7 +190,7 @@ namespace Ganter.WinUI
             outputStop.Reset();
         }
 
-        private void SaveIntoFile(string output)
+        private void SaveIntoFile(FormalContext context, List<List<Algorithm.Attribute>> ganterResult)
         {
             if (string.IsNullOrWhiteSpace(txtOutputPath.Text))
             {
@@ -208,7 +208,7 @@ namespace Ganter.WinUI
 
             using (StreamWriter writer = new StreamWriter(filePath))
             {
-                writer.Write(output);
+                context.WriteOutput(writer, ganterResult, rbTranReduction.Checked, chkAttributes.Checked, chkItems.Checked, txtSeparator.Text);
             }
 
             Process.Start(filePath);
