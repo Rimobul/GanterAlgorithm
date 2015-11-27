@@ -168,5 +168,72 @@ namespace Ganter.Algorithm
 
             return null;
         }
+
+        public bool[,] FormOutput(List<List<Attribute>> extents, List<List<Item>> intents, bool transitiveReduction)
+        {
+            bool[,] result = new bool[extents.Count, extents.Count];
+
+            Parallel.For(0, extents.Count, i => 
+                {
+                    for (int j = 0; j < extents.Count; j++)
+                    {
+                        if (i == j)
+                        {
+                            result[i, j] = true;
+                        }
+                        else if (extents[i].Contains(extents[j]))
+                        {
+                            result[i, j] = true;
+                        }
+                    }
+
+                    if(intents != null)
+                        intents.Add(Intent(extents[i]).ToList());
+                });
+
+            return result;
+        }
+
+        // TODO prerobit na zapis do streamu
+        public string FormOutputString(List<List<Attribute>> extents, bool transitiveReduction, bool attributes, bool items, string csvSeparator)
+        {
+            List<List<Item>> intents = null;
+
+            if (items)
+                intents = new List<List<Item>>();
+
+            bool[,] matrix = FormOutput(extents, intents, transitiveReduction);
+            StringBuilder sb = new StringBuilder();
+
+            if (attributes)
+            {
+                sb.AppendLine("Extents:");
+                foreach (var extent in extents)
+                {
+                    sb.AppendLine("{" + string.Join(", ", extent.Select(a => a.Name)) + "}");
+                }
+            }
+
+            if (items)
+            {
+                sb.AppendLine("\r\nIntents:");
+                foreach (var intent in intents)
+                {
+                    sb.AppendLine("{" + string.Join(", ", intent.Select(i => i.Name)) + "}");
+                }
+            }
+
+            sb.AppendLine("\r\nMatrix:");
+            for (int i = 0; i < extents.Count; i++)
+            {
+                for (int j = 0; j < extents.Count; j++)
+                {
+                    sb.Append(matrix[i, j].ToString().ToUpper() + csvSeparator + " ");
+                }
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+        }
     }
 }

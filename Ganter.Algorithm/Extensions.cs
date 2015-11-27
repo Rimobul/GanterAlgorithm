@@ -47,12 +47,7 @@ namespace Ganter.Algorithm
         /// <returns>True, if setA is a superset of setB. Otherwise returns false.</returns>
         public static bool Contains(this IEnumerable<Attribute> setA, IEnumerable<Attribute> setB)
         {
-            foreach (var b in setB)
-            {
-                if (!setA.Contains(b)) return false;
-            }
-
-            return true;
+            return !setB.Except(setA).Any();
         }
     }
 }

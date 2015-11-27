@@ -137,48 +137,49 @@ namespace Ganter.WinUI
             ganterStop.Stop();
             lblTimeGanter.Text = "Ganter algorithm: " + ganterStop.Elapsed.ToString("G");
 
-            latticeStop.Start();
-            Lattice lattice = new Lattice(ganterResult);
-            latticeStop.Stop();
-            lblTimeLattice.Text = "Lattice creation: " + latticeStop.Elapsed.ToString("G");
+            //latticeStop.Start();
+            //Lattice lattice = new Lattice(ganterResult);
+
+            //latticeStop.Stop();
+            //lblTimeLattice.Text = "Lattice creation: " + latticeStop.Elapsed.ToString("G");
 
             outputStop.Start();
-            StringBuilder output = new StringBuilder();
+            //StringBuilder output = new StringBuilder();
 
-            if (rbTranReduction.Checked)
-            {
-                if (chkAttributes.Checked)
-                {
-                    output.AppendLine("Attributes");
-                    output.AppendLine(lattice.ReducedAttributeString(true));
-                    output.AppendLine();
-                }
+            //if (rbTranReduction.Checked)
+            //{
+            //    if (chkAttributes.Checked)
+            //    {
+            //        output.AppendLine("Attributes");
+            //        output.AppendLine(lattice.ReducedAttributeString(true));
+            //        output.AppendLine();
+            //    }
 
-                if (chkItems.Checked)
-                {
-                    output.AppendLine("Items");
-                    output.AppendLine(lattice.ReducedItemString(true, context));
-                    output.AppendLine();
-                }
-            }
-            else
-            {
-                if (chkAttributes.Checked)
-                {
-                    output.AppendLine("Attributes");
-                    output.AppendLine(lattice.FullAttributeString(true, context));
-                    output.AppendLine();
-                }
+            //    if (chkItems.Checked)
+            //    {
+            //        output.AppendLine("Items");
+            //        output.AppendLine(lattice.ReducedItemString(true, context));
+            //        output.AppendLine();
+            //    }
+            //}
+            //else
+            //{
+            //    if (chkAttributes.Checked)
+            //    {
+            //        output.AppendLine("Attributes");
+            //        output.AppendLine(lattice.FullAttributeString(true, context));
+            //        output.AppendLine();
+            //    }
 
-                if (chkItems.Checked)
-                {
-                    output.AppendLine("Items");
-                    output.AppendLine(lattice.FullItemString(true, context));
-                    output.AppendLine();
-                }
-            }
+            //    if (chkItems.Checked)
+            //    {
+            //        output.AppendLine("Items");
+            //        output.AppendLine(lattice.FullItemString(true, context));
+            //        output.AppendLine();
+            //    }
+            //}
 
-            SaveIntoFile(output.ToString());
+            SaveIntoFile(context.FormOutputString(ganterResult, rbTranReduction.Checked, chkAttributes.Checked, chkItems.Checked, txtSeparator.Text));
             outputStop.Stop();
             lblTimeOutput.Text = "Output creation: " + outputStop.Elapsed.ToString("G");
             lblTimeTotal.Text = "Total time: " + (inputStop.Elapsed + ganterStop.Elapsed + latticeStop.Elapsed + outputStop.Elapsed).ToString("G");

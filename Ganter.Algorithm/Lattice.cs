@@ -31,10 +31,7 @@ namespace Ganter.Algorithm
 
             while (pivot != maxElement)
             {
-                foreach (var latticeSet in Sets.Where(s => s > pivot && !s.Processed))
-                {
-                    latticeSet.ProcessPossibleSubset(pivot);
-                }
+                Parallel.ForEach(Sets.Where(s => s > pivot && !s.Processed), l => l.ProcessPossibleSubset(pivot));
 
                 pivot.Processed = true;
 
