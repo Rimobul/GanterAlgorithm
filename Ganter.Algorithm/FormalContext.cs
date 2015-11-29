@@ -62,11 +62,11 @@ namespace Ganter.Algorithm
         }
 
         /// <summary>
-        /// Creates the intent for a particular set of attributes.
+        /// Creates the extent for a particular set of attributes.
         /// </summary>
-        /// <param name="attributeSet">The attribute set, for which the intent should be created.</param>
+        /// <param name="attributeSet">The attribute set, for which the extent should be created.</param>
         /// <returns>A set of items, which possess all desired attributes.</returns>
-        public IEnumerable<Item> Intent(IEnumerable<Attribute> attributeSet)
+        public IEnumerable<Item> Extent(IEnumerable<Attribute> attributeSet)
         {
             if (attributeSet == null || !attributeSet.Any())
             {
@@ -93,11 +93,11 @@ namespace Ganter.Algorithm
         }
 
         /// <summary>
-        /// Creates the extent for a particular set of items.
+        /// Creates the intent for a particular set of items.
         /// </summary>
-        /// <param name="items">The item set, for which the extent should be created.</param>
+        /// <param name="items">The item set, for which the intent should be created.</param>
         /// <returns>A set of attributes, which are all possessed by all the provided items.</returns>
-        public IEnumerable<Attribute> Extent(IEnumerable<Item> items)
+        public IEnumerable<Attribute> Intent(IEnumerable<Item> items)
         {
             if (items == null || !items.Any())
             {
@@ -126,10 +126,10 @@ namespace Ganter.Algorithm
         /// <summary>
         /// Performs the Ganter algorithm.
         /// </summary>
-        /// <returns>A set of extents.</returns>
+        /// <returns>A set of intents.</returns>
         public List<List<Attribute>> PerformAlgorithm()
         {
-            List<Attribute> setA = Extent(Items).ToList();
+            List<Attribute> setA = Intent(Items).ToList();
             List<List<Attribute>> resultSets = new List<List<Attribute>>();
             bool wasFound = true;
 
@@ -170,68 +170,97 @@ namespace Ganter.Algorithm
             return null;
         }
 
-        public bool[,] FormOutput(List<List<Attribute>> extents, List<List<Item>> intents, bool transitiveReduction)
+        /// <summary>
+        /// Creates the output, that serves as a base for Hasse diagram representation.
+        /// </summary>
+        /// <param name="intents">Set of intents, that were produced as a result of the Ganter algorithm.</param>
+        /// <param name="extents">An empty set, into which sets of extents will be inserted. If extents should not be formed, pass NULL.</param>
+        /// <param name="transitiveReduction">Determines, whether the result should pass through transitive reduction. Transitive reduction makes the resulting 
+        /// file smaller, but takes more time.</param>
+        /// <returns>A dictionary representing the sparse matrix of relations among the intents.</returns>
+        public Dictionary<int, HashSet<int>> FormOutput(List<List<Attribute>> intents, List<List<Item>> extents, bool transitiveReduction)
         {
-            bool[,] result = new bool[extents.Count, extents.Count];
+            Dictionary<int, HashSet<int>> result = new Dictionary<int, HashSet<int>>();
 
-            Parallel.For(0, extents.Count, i => 
+            for(int i = 0; i < intents.Count; i++)
+            {
+                result.Add(i, new HashSet<int>());
+
+                if (extents != null)
+                    extents.Add(Extent(intents[i]).ToList());
+            }
+
+            Parallel.For(0, intents.Count, i =>
+            {
+                for (int j = 0; j <= i; j++)
                 {
-                    for (int j = 0; j < extents.Count; j++)
+                    if (i == j && !transitiveReduction)
                     {
-                        if (i == j)
-                        {
-                            result[i, j] = true;
-                        }
-                        else if (extents[i].Contains(extents[j]))
-                        {
-                            result[i, j] = true;
-                        }
+                        result[i].Add(j);
                     }
+                    else if (i != j && intents[i].Contains(intents[j]))
+                    {
+                        result[i].Add(j);
+                    }
+                }                
+            });
 
-                    if(intents != null)
-                        intents.Add(Intent(extents[i]).ToList());
-                });
+            if(transitiveReduction)
+            {
+                for(int i = 1; i < result.Count; i++)
+                {
+                    for(int j = 0; j < i; j++)
+                    {
+                        if (result[i].Contains(j))
+                            result[i].RemoveWhere(r => result[j].Contains(r));
+                    }
+                }
+            }
 
             return result;
         }
 
-        // TODO prerobit na zapis do streamu
-        public void WriteOutput(StreamWriter writer, List<List<Attribute>> extents, bool transitiveReduction, bool attributes, bool items, string csvSeparator)
+        /// <summary>
+        /// Writes the result suitable for Hasse diagram creation into provided stream.
+        /// </summary>
+        /// <param name="writer">The stream writer, into which the result should be written.</param>
+        /// <param name="intents">The result of Ganter algorithm.</param>
+        /// <param name="transitiveReduction">Determines, whether the result should pass through transitive reduction. Transitive reduction makes the resulting 
+        /// file smaller, but takes more time.</param>
+        /// <param name="attributes">Determines, whether the set of attributes (intents) should be written at the beginning of the resulting document.</param>
+        /// <param name="items">Determines, whether the set of item (extents) should be written at the beginning of the resulting document.</param>
+        /// <param name="csvSeparator">The separator, that will be used to separate individual sets.</param>
+        public void WriteOutput(StreamWriter writer, List<List<Attribute>> intents, bool transitiveReduction, bool attributes, bool items, string csvSeparator)
         {
-            List<List<Item>> intents = null;
+            List<List<Item>> extents = null;
 
             if (items)
-                intents = new List<List<Item>>();
+                extents = new List<List<Item>>();
 
-            bool[,] matrix = FormOutput(extents, intents, transitiveReduction);
+            var dictionary = FormOutput(intents, extents, transitiveReduction);
 
             if (attributes)
             {
-                writer.WriteLine("Extents:");
-                foreach (var extent in extents)
+                writer.WriteLine("Intents:");
+                foreach (var intent in intents)
                 {
-                    writer.WriteLine("{" + string.Join(", ", extent.Select(a => a.Name)) + "}");
+                    writer.WriteLine("{" + string.Join(", ", intent.Select(a => a.Name)) + "}");
                 }
             }
 
             if (items)
             {
-                writer.WriteLine("\r\nIntents:");
-                foreach (var intent in intents)
+                writer.WriteLine("\r\nExtents:");
+                foreach (var extent in extents)
                 {
-                    writer.WriteLine("{" + string.Join(", ", intent.Select(i => i.Name)) + "}");
+                    writer.WriteLine("{" + string.Join(", ", extent.Select(i => i.Name)) + "}");
                 }
             }
 
-            writer.WriteLine("\r\nMatrix:");
-            for (int i = 0; i < extents.Count; i++)
+            writer.WriteLine("\r\nAlias(Intent): List of relations");
+            for (int i = 0; i < dictionary.Count; i++)
             {
-                StringBuilder sb = new StringBuilder();
-                for (int j = 0; j < extents.Count; j++)
-                {
-                    sb.Append((matrix[i, j] ? "1" : "0") + csvSeparator + " ");
-                }
-                writer.WriteLine(sb.ToString());
+                writer.WriteLine(string.Format("{0} ({1}) : \r\n\t{2}", i, intents[i].AsString(), dictionary[i].RelationsString(i)));
             }
         }
     }

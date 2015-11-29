@@ -18,7 +18,6 @@ namespace Ganter.WinUI
     {
         private Stopwatch inputStop = new Stopwatch();
         private Stopwatch ganterStop = new Stopwatch();
-        private Stopwatch latticeStop = new Stopwatch();
         private Stopwatch outputStop = new Stopwatch();
 
         public GanterWindow()
@@ -137,56 +136,15 @@ namespace Ganter.WinUI
             ganterStop.Stop();
             lblTimeGanter.Text = "Ganter algorithm: " + ganterStop.Elapsed.ToString("G");
 
-            //latticeStop.Start();
-            //Lattice lattice = new Lattice(ganterResult);
-
-            //latticeStop.Stop();
-            //lblTimeLattice.Text = "Lattice creation: " + latticeStop.Elapsed.ToString("G");
-
             outputStop.Start();
-            //StringBuilder output = new StringBuilder();
-
-            //if (rbTranReduction.Checked)
-            //{
-            //    if (chkAttributes.Checked)
-            //    {
-            //        output.AppendLine("Attributes");
-            //        output.AppendLine(lattice.ReducedAttributeString(true));
-            //        output.AppendLine();
-            //    }
-
-            //    if (chkItems.Checked)
-            //    {
-            //        output.AppendLine("Items");
-            //        output.AppendLine(lattice.ReducedItemString(true, context));
-            //        output.AppendLine();
-            //    }
-            //}
-            //else
-            //{
-            //    if (chkAttributes.Checked)
-            //    {
-            //        output.AppendLine("Attributes");
-            //        output.AppendLine(lattice.FullAttributeString(true, context));
-            //        output.AppendLine();
-            //    }
-
-            //    if (chkItems.Checked)
-            //    {
-            //        output.AppendLine("Items");
-            //        output.AppendLine(lattice.FullItemString(true, context));
-            //        output.AppendLine();
-            //    }
-            //}
 
             SaveIntoFile(context, ganterResult);
             outputStop.Stop();
             lblTimeOutput.Text = "Output creation: " + outputStop.Elapsed.ToString("G");
-            lblTimeTotal.Text = "Total time: " + (inputStop.Elapsed + ganterStop.Elapsed + latticeStop.Elapsed + outputStop.Elapsed).ToString("G");
+            lblTimeTotal.Text = "Total time: " + (inputStop.Elapsed + ganterStop.Elapsed + outputStop.Elapsed).ToString("G");
 
             inputStop.Reset();
             ganterStop.Reset();
-            latticeStop.Reset();
             outputStop.Reset();
         }
 
@@ -206,9 +164,14 @@ namespace Ganter.WinUI
             string filePath = Path.Combine(txtOutputPath.Text, new string(DateTime.Now.ToString().Where(c => char.IsLetterOrDigit(c)).ToArray()));
             filePath += ".txt";
 
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter stream = new StreamWriter(filePath))
             {
-                context.WriteOutput(writer, ganterResult, rbTranReduction.Checked, chkAttributes.Checked, chkItems.Checked, txtSeparator.Text);
+                //using (BinaryWriter writer = new BinaryWriter(stream.BaseStream))
+                //{
+                //    context.WriteOutput(writer, ganterResult, rbTranReduction.Checked, chkAttributes.Checked, chkItems.Checked, txtSeparator.Text);
+                //}
+
+                context.WriteOutput(stream, ganterResult, rbTranReduction.Checked, chkAttributes.Checked, chkItems.Checked, txtSeparator.Text);
             }
 
             Process.Start(filePath);

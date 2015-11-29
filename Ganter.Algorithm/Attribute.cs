@@ -21,6 +21,9 @@ namespace Ganter.Algorithm
         /// The lectic position of the attribute. If none is given, the formal context should assign a default value.
         /// </summary>
         public int LecticPosition { get; set; }
+        /// <summary>
+        /// The maximum value discovered during preprocessing. Serves to count the Step value.
+        /// </summary>
         public int Max
         {
             get { return _max; }
@@ -30,7 +33,9 @@ namespace Ganter.Algorithm
                 CalculateDefaultStep();
             }
         }
-
+        /// <summary>
+        /// The minimal value discovered during preprocessing. Servers to count the Step value.
+        /// </summary>
         public int Min
         {
             get { return _min; }
@@ -40,7 +45,13 @@ namespace Ganter.Algorithm
                 CalculateDefaultStep();
             }
         }
+        /// <summary>
+        /// The step, that will divide this attribute into several sub-attributes.
+        /// </summary>
         public int Step { get; set; }
+        /// <summary>
+        /// If this is a sub-attribute, the reference for the original attribute is needed for creation of formal concept.
+        /// </summary>
         public Attribute ParentAttribute { get; set; }
 
         /// <summary>
@@ -125,6 +136,11 @@ namespace Ganter.Algorithm
             return !(a == b);
         }
 
+        /// <summary>
+        /// Determines, whether given number is larger than the minimal value, but smaller than the maximum.
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         public bool IsInRange(decimal number)
         {
             return number >= Min && number < Max;
@@ -132,7 +148,7 @@ namespace Ganter.Algorithm
 
         /// <summary>
         /// Creates a closure (a derivation, according to Ganter) of this attribute and an attribute set, based on give formal context.
-        /// The closure is formed as an extent of the intent of the union of this attribute and all attributes in the attribute set, that
+        /// The closure is formed as an intent of the extent of the union of this attribute and all attributes in the attribute set, that
         ///  have smaller lectic position.
         /// </summary>
         /// <param name="setA">The attribute set, to form a closure.</param>
@@ -141,7 +157,7 @@ namespace Ganter.Algorithm
         public List<Attribute> Closure(List<Attribute> setA, FormalContext formalContext)
         {
             List<Attribute> lecticSet = FormLecticSet(setA);
-            return formalContext.Extent(formalContext.Intent(lecticSet)).ToList();
+            return formalContext.Intent(formalContext.Extent(lecticSet)).ToList();
         }
 
         /// <summary>
@@ -190,6 +206,9 @@ namespace Ganter.Algorithm
             return string.Format("{0} : {1}", Name, LecticPosition);
         }
 
+        /// <summary>
+        /// Calculates the default step value based on the Min and Max properties.
+        /// </summary>
         private void CalculateDefaultStep()
         {
             int difference = Max - Min;

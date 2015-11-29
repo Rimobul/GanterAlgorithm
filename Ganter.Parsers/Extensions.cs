@@ -9,6 +9,11 @@ namespace Ganter.Parsers
 {
     public static class Extensions
     {
+        /// <summary>
+        /// Reads all lines of a document.
+        /// </summary>
+        /// <param name="reader">The stream to get data from.</param>
+        /// <returns>Set of read lines.</returns>
         public static IEnumerable<string> ReadLines(this TextReader reader)
         {
             string line = null;

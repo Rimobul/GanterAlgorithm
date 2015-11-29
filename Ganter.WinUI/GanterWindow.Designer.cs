@@ -30,6 +30,7 @@
         {
             this.panInput = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkPreprocess = new System.Windows.Forms.CheckBox();
             this.txtSeparator = new System.Windows.Forms.TextBox();
             this.lblSeparator = new System.Windows.Forms.Label();
             this.txtDefaultFalse = new System.Windows.Forms.TextBox();
@@ -117,7 +118,6 @@
             this.lblInputTime = new System.Windows.Forms.Label();
             this.lblTimeTotal = new System.Windows.Forms.Label();
             this.lblTimeOutput = new System.Windows.Forms.Label();
-            this.lblTimeLattice = new System.Windows.Forms.Label();
             this.lblTimeGanter = new System.Windows.Forms.Label();
             this.lblTimes = new System.Windows.Forms.Label();
             this.lblAuthor = new System.Windows.Forms.Label();
@@ -127,7 +127,6 @@
             this.btnTestPapers = new System.Windows.Forms.Button();
             this.btnTestPlanets = new System.Windows.Forms.Button();
             this.lblTestTitle = new System.Windows.Forms.Label();
-            this.chkPreprocess = new System.Windows.Forms.CheckBox();
             this.panInput.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panOutput.SuspendLayout();
@@ -227,6 +226,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 196);
             this.panel2.TabIndex = 83;
+            // 
+            // chkPreprocess
+            // 
+            this.chkPreprocess.AutoSize = true;
+            this.chkPreprocess.Location = new System.Drawing.Point(7, 15);
+            this.chkPreprocess.Name = "chkPreprocess";
+            this.chkPreprocess.Size = new System.Drawing.Size(134, 21);
+            this.chkPreprocess.TabIndex = 5;
+            this.chkPreprocess.Text = "Preprocess data";
+            this.chkPreprocess.UseVisualStyleBackColor = true;
+            this.chkPreprocess.CheckedChanged += new System.EventHandler(this.chkPreprocess_CheckedChanged);
             // 
             // txtSeparator
             // 
@@ -926,7 +936,7 @@
             this.chkItems.Name = "chkItems";
             this.chkItems.Size = new System.Drawing.Size(112, 21);
             this.chkItems.TabIndex = 4;
-            this.chkItems.Text = "Items (Intent)";
+            this.chkItems.Text = "Items (Extent)";
             this.chkItems.UseVisualStyleBackColor = true;
             // 
             // chkAttributes
@@ -938,7 +948,7 @@
             this.chkAttributes.Name = "chkAttributes";
             this.chkAttributes.Size = new System.Drawing.Size(143, 21);
             this.chkAttributes.TabIndex = 3;
-            this.chkAttributes.Text = "Attributes (Extent)";
+            this.chkAttributes.Text = "Attributes (Intent)";
             this.chkAttributes.UseVisualStyleBackColor = true;
             // 
             // rbTranReduction
@@ -978,12 +988,11 @@
             this.panel1.Controls.Add(this.lblInputTime);
             this.panel1.Controls.Add(this.lblTimeTotal);
             this.panel1.Controls.Add(this.lblTimeOutput);
-            this.panel1.Controls.Add(this.lblTimeLattice);
             this.panel1.Controls.Add(this.lblTimeGanter);
             this.panel1.Controls.Add(this.lblTimes);
-            this.panel1.Location = new System.Drawing.Point(893, 373);
+            this.panel1.Location = new System.Drawing.Point(893, 391);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(300, 147);
+            this.panel1.Size = new System.Drawing.Size(300, 129);
             this.panel1.TabIndex = 2;
             // 
             // lblInputTime
@@ -998,29 +1007,21 @@
             // lblTimeTotal
             // 
             this.lblTimeTotal.AutoSize = true;
-            this.lblTimeTotal.Location = new System.Drawing.Point(12, 116);
+            this.lblTimeTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblTimeTotal.Location = new System.Drawing.Point(12, 102);
             this.lblTimeTotal.Name = "lblTimeTotal";
-            this.lblTimeTotal.Size = new System.Drawing.Size(74, 17);
+            this.lblTimeTotal.Size = new System.Drawing.Size(85, 17);
             this.lblTimeTotal.TabIndex = 4;
             this.lblTimeTotal.Text = "Total time:";
             // 
             // lblTimeOutput
             // 
             this.lblTimeOutput.AutoSize = true;
-            this.lblTimeOutput.Location = new System.Drawing.Point(12, 94);
+            this.lblTimeOutput.Location = new System.Drawing.Point(12, 75);
             this.lblTimeOutput.Name = "lblTimeOutput";
             this.lblTimeOutput.Size = new System.Drawing.Size(110, 17);
             this.lblTimeOutput.TabIndex = 3;
             this.lblTimeOutput.Text = "Output creation:";
-            // 
-            // lblTimeLattice
-            // 
-            this.lblTimeLattice.AutoSize = true;
-            this.lblTimeLattice.Location = new System.Drawing.Point(12, 73);
-            this.lblTimeLattice.Name = "lblTimeLattice";
-            this.lblTimeLattice.Size = new System.Drawing.Size(109, 17);
-            this.lblTimeLattice.TabIndex = 2;
-            this.lblTimeLattice.Text = "Lattice creation:";
             // 
             // lblTimeGanter
             // 
@@ -1062,14 +1063,14 @@
             this.panTests.Controls.Add(this.lblTestTitle);
             this.panTests.Location = new System.Drawing.Point(893, 240);
             this.panTests.Name = "panTests";
-            this.panTests.Size = new System.Drawing.Size(300, 121);
+            this.panTests.Size = new System.Drawing.Size(300, 145);
             this.panTests.TabIndex = 4;
             // 
             // btnTestNumbers
             // 
-            this.btnTestNumbers.Location = new System.Drawing.Point(41, 84);
+            this.btnTestNumbers.Location = new System.Drawing.Point(41, 105);
             this.btnTestNumbers.Name = "btnTestNumbers";
-            this.btnTestNumbers.Size = new System.Drawing.Size(206, 23);
+            this.btnTestNumbers.Size = new System.Drawing.Size(206, 30);
             this.btnTestNumbers.TabIndex = 3;
             this.btnTestNumbers.Text = "Test numbers 1-10";
             this.btnTestNumbers.UseVisualStyleBackColor = true;
@@ -1077,9 +1078,9 @@
             // 
             // btnTestPapers
             // 
-            this.btnTestPapers.Location = new System.Drawing.Point(41, 54);
+            this.btnTestPapers.Location = new System.Drawing.Point(41, 69);
             this.btnTestPapers.Name = "btnTestPapers";
-            this.btnTestPapers.Size = new System.Drawing.Size(206, 23);
+            this.btnTestPapers.Size = new System.Drawing.Size(206, 30);
             this.btnTestPapers.TabIndex = 2;
             this.btnTestPapers.Text = "Test papers";
             this.btnTestPapers.UseVisualStyleBackColor = true;
@@ -1087,9 +1088,9 @@
             // 
             // btnTestPlanets
             // 
-            this.btnTestPlanets.Location = new System.Drawing.Point(41, 24);
+            this.btnTestPlanets.Location = new System.Drawing.Point(41, 33);
             this.btnTestPlanets.Name = "btnTestPlanets";
-            this.btnTestPlanets.Size = new System.Drawing.Size(206, 23);
+            this.btnTestPlanets.Size = new System.Drawing.Size(206, 30);
             this.btnTestPlanets.TabIndex = 1;
             this.btnTestPlanets.Text = "Test planets";
             this.btnTestPlanets.UseVisualStyleBackColor = true;
@@ -1103,17 +1104,6 @@
             this.lblTestTitle.Size = new System.Drawing.Size(43, 17);
             this.lblTestTitle.TabIndex = 0;
             this.lblTestTitle.Text = "Tests";
-            // 
-            // chkPreprocess
-            // 
-            this.chkPreprocess.AutoSize = true;
-            this.chkPreprocess.Location = new System.Drawing.Point(7, 15);
-            this.chkPreprocess.Name = "chkPreprocess";
-            this.chkPreprocess.Size = new System.Drawing.Size(134, 21);
-            this.chkPreprocess.TabIndex = 5;
-            this.chkPreprocess.Text = "Preprocess data";
-            this.chkPreprocess.UseVisualStyleBackColor = true;
-            this.chkPreprocess.CheckedChanged += new System.EventHandler(this.chkPreprocess_CheckedChanged);
             // 
             // GanterWindow
             // 
@@ -1212,7 +1202,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTimeTotal;
         private System.Windows.Forms.Label lblTimeOutput;
-        private System.Windows.Forms.Label lblTimeLattice;
         private System.Windows.Forms.Label lblTimeGanter;
         private System.Windows.Forms.Label lblTimes;
         private System.Windows.Forms.Label lblAuthor;
